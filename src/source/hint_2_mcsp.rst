@@ -7,7 +7,8 @@ Try
 
 .. code:: 
   
-  by_cases (∃ bob : camper, ¬ singing bob),
-  cases h with bob key,
-  use bob,
-  push_neg at h,
+  cases em (∃ bob : camper, ¬ singing bob) with hyes hno,
+  { cases hyes with bob key,
+    use bob, },
+  { push_neg at hno, -- a tactic from the glossary, which makes dealing with negations easier
+    sorry, }

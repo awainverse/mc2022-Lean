@@ -7,4 +7,4 @@ If your target is ``false``, and one of your assumptions is ``hnq : ¬ Q`` then 
 
 .. code:: 
   
-  apply hnq,
+  refine hnq _,

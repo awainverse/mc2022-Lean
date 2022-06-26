@@ -66,6 +66,10 @@ To produce a pretty symbol in Lean, type the *editor shortcut* followed by space
     - ``\ne``
     - not equal to
 
+  * - ⟨⟩
+    - ``\langle`` and ``\rangle``
+    - used to build complicated types out of simple types
+
 
 .. rubric:: Footnotes
 

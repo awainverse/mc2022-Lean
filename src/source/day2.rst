@@ -4,12 +4,7 @@
 Logic in Lean - Part 2
 ***************************
 
-.. todo:: 
-
-  Proof-read this file, clean the language and fix any typos.
-
-
-Your mission today is to wrap up the remaining bits of logic and move on to doing some "actual math".
+The goal today is to wrap up the remaining bits of logic and move on to doing some "actual math".
 Remember to **always save your work**. 
 You might find the :doc:`Glossary of tactics<../tactics>` page and the :doc:`Pretty symbols<../symbols>` page useful.
 
@@ -76,7 +71,7 @@ then ``hello_world hp' hq' hr'`` (note the convenient lack of brackets) will be 
 
 Once constructed, any term can be used in a later proof. For example,
 
-.. code:: 
+.. code::
 
   example (P Q : Prop) : (P → Q) → (P → Q) :=
   begin
@@ -90,123 +85,101 @@ only remembers its type.
 All the proof terms can then be used in later proofs.
 All of this falls under the giant umbrella of the `Curry--Howard correspondence <https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence>`__.
 
-We'll now continue our study of the remaining logical operators: *and* (``∧``), 
-*or* (``∨``), 
-*if and only if* (``↔``), 
-*for all* (``∀``),
-*there exists* (``∃``).
+We'll now introduce an axiom which will give us the full power of proof by contradiction.
 
-And / Or
-===============================
-The operators *and* (``∧``) and *or* (``∨``) are very easy to use in Lean.
-Given a term ``hpq : P ∧ Q``, 
-there are tactics that let you 
-create terms ``hp : P`` and ``hq : Q``, and vice versa.
-Similarly for ``P ∨ Q``, with a subtle change (see below).
-
-**Note** that when multiple goals are open, you are trying to solve the topmost goal.
-
-.. list-table:: 
-  :widths: 10 90
-  :header-rows: 0
-
-  * - ``cases``
-    - ``cases`` is a general tactic that breaks a complicated term into simpler ones.
-
-      If ``hpq`` is a term of type ``P ∧ Q``, then 
-      ``cases hpq with hp hq,`` breaks it into ``hp : P`` and ``hp : Q``.
-
-      If ``fg`` is a term of type ``P ↔ Q``, then 
-      ``cases fg with f g,`` breaks it into ``f : P → Q`` and ``g : Q → P``.
-
-      If ``hpq`` is a term of type ``P ∨ Q``, then 
-      ``cases hpq with hp hq,`` creates two goals and adds the hypotheses ``hp : P`` and ``hq : Q`` to one each.
-
-  * - ``split``
-    - ``split`` is a general tactic that breaks a complicated goal into simpler ones.
-    
-      If the target of the current goal is ``P ∧ Q``, then 
-      ``split,`` breaks up the goal into two goals with targets ``P`` and ``Q``.
-
-      If the target of the current goal is ``P × Q``, then 
-      ``split,`` breaks up the goal into two goals with targets ``P`` and ``Q``.
-
-      If the target of the current goal is ``P ↔ Q``, then 
-      ``split,`` breaks up the goal into two goals with targets ``P → Q`` and ``Q → P``.
-
-  * - ``left``
-    - If the target of the current goal is ``P ∨ Q``, then 
-      ``left,`` changes the target to ``P``.
-  
-  * - ``right``
-    - If the target of the current goal is ``P ∨ Q``, then 
-      ``right,`` changes the target to ``Q``.
-
+The Law of the Excluded Middle
+========================
+You can prove exactly one of the following using just ``refine``, ``rintro``, and ``have``.
+Can you find which one?
 
 .. code:: lean
-  :name: and_or_example
+
+  /--------------------------------------------------------------------------
+
+  You can prove exactly one of the following three using just 
+  ``refine``, ``rintro``, and ``have``.
+  
+  Can you find which one?
+
+  --------------------------------------------------------------------------/
+
+  theorem not_not_self_imp_self (P : Prop) : ¬ ¬ P → P:=
+  begin
+    sorry,
+  end
+
+  theorem contrapositive_converse (P Q : Prop) : (¬Q → ¬P) → (P → Q) :=
+  begin
+    sorry,
+  end
+
+  example (P : Prop) : ¬ P → ¬ ¬ ¬ P :=
+  begin
+    sorry,
+  end
+
+This is because it is not true that ``¬ ¬ P = P`` *by definition*, after all, 
+``¬ ¬ P`` is ``(P → false) → false`` which is drastically different from ``P``.
+There is an extra axiom called **the law of excluded middle** which says that 
+either ``P`` is inhabited or ``¬ P`` is inhabited (and there is no *middle* option) 
+and so ``P ↔ ¬ ¬ P``.
+Lean gives it to us in the form of ``em P : P ∨ ¬ P``, although it's not always included.
+Because some mathematicians would prefer to avoid using this in their proofs, 
+you have to type the lines ``noncomputable theory`` and ``open_locale classical``
+near the top of the file, to show that you're ok with using all of classical logic!
+
+.. code:: lean
 
   import tactic
 
   -- these two statements tell Lean to use the law of excluded middle as necessary
   noncomputable theory
   open_locale classical
+  
 
   --BEGIN--
 
 
   /--------------------------------------------------------------------------
 
-  ``cases``
+  ``em``
     
-    ``cases`` is a general tactic that breaks up complicated terms.
-    If ``hpq`` is a term of type ``P ∧ Q`` or ``P ∨ Q`` or ``P ↔ Q``, then use 
-    ``cases hpq with hp hq,``.
-
-  ``split``
-    
-    If the target of the current goal is ``P ∧ Q`` or ``P ↔ Q``, then use
-    ``split,``.
-
-  ``left``/``right``
-    
-    If the target of the current goal is ``P ∨ Q``, then use 
-    either ``left,`` or ``right,`` (choose wisely).
-
-  ``exfalso``
-
-    Changes the target of the current goal to ``false``.
+    If ``P : Prop``, then ``em P : P ∨ ¬ P`` lets you use the law of the excluded middle on ``P``.
 
   Delete the ``sorry,`` below and replace them with a legitimate proof.
 
   --------------------------------------------------------------------------/
 
-  example (P Q : Prop) : P ∧ Q → Q ∧ P :=
+  theorem not_not_self_imp_self (P : Prop) : ¬ ¬ P → P:=
   begin
     sorry,
   end
 
-  example (P Q : Prop) : P ∨ Q → Q ∨ P :=
+  theorem contrapositive_converse (P Q : Prop) : (¬Q → ¬P) → (P → Q) :=
   begin
     sorry,
   end
 
-  example (P Q R : Prop) : P ∧ false ↔ false :=
+  example (P : Prop) : ¬ P → ¬ ¬ ¬ P :=
   begin
     sorry,
   end
 
-  theorem principle_of_explosion (P Q : Prop) : P ∧ ¬ P → Q :=
+  theorem principle_of_explosion (P Q : Prop) : P → (¬ P → Q) :=
   begin
     sorry,
   end
 
   --END--
 
+There are more specialized tactics that combine ``false.elim`` and ``em`` with other tactics to streamline the process of dealing with negations.
+You can read about them at :doc:`Glossary of tactics<../tactics>`, and if you want, you can try to shorten some of your above proofs with them.
+
 Quantifiers 
 ============== 
-As mentioned it the introduction the *for all* quantifier, ``∀``, is a generalization of a function.
-As such the tactics for dealing with ``∀`` are the same as those for ``→``. 
+As mentioned it the introduction, the *for all* quantifier, ``∀``, is a generalization of a function.
+As such the tactics for dealing with ``∀`` are the same as those for ``→``.
+(Type it as ``\forall``.)
 
 .. list-table:: 
   :widths: 10 90
@@ -217,14 +190,15 @@ As such the tactics for dealing with ``∀`` are the same as those for ``→``.
       ``y`` is a term of type ``X`` then 
       ``have hpy := hp(y)`` creates a hypothesis ``hpy : P y``.
 
-  * - ``intro``
+  * - ``rintro``
     - If the target of the current goal is ``∀ x : X, P x``, then 
-      ``intro x,`` creates a hypothesis ``x : X`` and 
+      ``rintro x,`` creates a hypothesis ``x : X`` and 
       changes the target to ``P x``.
 
-The *there exists* quantifier, ``∃``, in type theory is very intuitive. 
+The *there exists* quantifier, ``∃``, in type theory, uses similar tools to 
 If you want to prove a statement ``∃ x : X, P x`` then you need to provide a witness.
 If you have a term ``hp : ∃ x : X, P x`` then from this you can extract a witness.
+(Type it as ``\exists``.)
 
 .. list-table:: 
   :widths: 10 90
@@ -240,7 +214,7 @@ If you have a term ``hp : ∃ x : X, P x`` then from this you can extract a witn
       and ``y`` is a term of type ``X``, then 
       ``use y,`` changes the target to ``P y`` and tries to close the goal.
 
-Finally, we know enough Lean tactics to start doing some fun stuff.
+Finally, we know enough Lean to start doing some fun stuff.
 
 Barber paradox
 ------------------------------------  
@@ -252,19 +226,13 @@ Here are some :doc:`hints <../hint_1_barber_paradox>` if you get stuck.
 .. code-block:: lean
 
   import tactic
-  -- the next two lines let us use the by_cases tactic without trouble
+  -- the next two lines let us use the law of the excluded middle without trouble
   noncomputable theory
   open_locale classical
 
   --BEGIN--
 
   /--------------------------------------------------------------------------
-
-  ``by_cases``
-
-    If ``P`` is a proposition, then ``by_cases P,`` creates two goals,
-      the first with a hypothesis ``hp: P`` and
-      second with a hypothesis ``hp: ¬ P``.
 
   Delete the ``sorry,`` below and replace them with a legitimate proof.
 
@@ -297,19 +265,13 @@ then everyone in the lounge is singing.
   :name: lounge_paradox
 
   import tactic
-  -- the next two lines let us use the by_cases tactic without trouble
+  -- the next two lines let us use the law of the excluded middle without trouble
   noncomputable theory
   open_locale classical
 
   --BEGIN--
 
   /--------------------------------------------------------------------------
-
-  ``by_cases``
-
-    If ``P`` is a proposition, then ``by_cases P,`` creates two goals, 
-      the first with a hypothesis ``hp: P`` and 
-      second with a hypothesis ``hp: ¬ P``.
 
   Delete the ``sorry,`` below and replace them with a legitimate proof.
 
@@ -358,128 +320,130 @@ then it is also reflexive.
     sorry,
   end
 
-
-
-Proving "trivial" statements 
-=============================
-In mathlib, divisibility for natural numbers is defined as the following *proposition*.
-
-.. code:: 
-
-  a ∣ b := (∃ k : ℕ, a = b * k)
-
-For example, ``2 | 4`` will be a proposition ``∃ k : ℕ, 4 = 2 * k``. 
-**Very important.** The statement ``2 | 4`` is not saying that "2 divides 4 *is true*". 
-It is simply a proposition that requires a proof. 
-
-Similarly, the mathlib library also contains the following definition of ``prime``.
-
-.. code:: 
-
-    def nat.prime (p : ℕ) : Prop 
-    := 
-      2 ≤ p                                       -- p is at least 2
-      ∧                                           -- and 
-      ∀ (m : ℕ), m ∣ p → m = 1 ∨ m = p            -- if m divides p, then m = 1 or m = p.
-
-Same as with divisibility, for every natural number ``n``, 
-``nat.prime n`` is a *proposition*.
-So that ``nat.prime 101`` requires a proof.
-It is possible to go down the rabbit hole and prove it using just the axioms of natural numbers.
-However, this might come at the cost of your sanity.
-Fortunately, there are tactics in Lean for proving trivial proofs such as these.
+Equality 
+===========
+So far we have not seen how to deal with propositions of the form ``P = Q``, for example, ``1 + 2 + ... + n = n(n + 1)/2``. Proving these propositions by hand requires messing around with the axioms of type theory.
+*Using* equalities on the other hand is very easy. The rewrite tactic (usually shortened to ``rw``) let's you replace the left hand side of an equality with the right hand side.
 
 .. list-table:: 
   :widths: 10 90
   :header-rows: 0
 
-  * - ``norm_num``
-    - ``norm_num`` is Lean’s calculator. If the target has a proof that involves *only* numbers and arithmetic operations,
-      then ``norm_num`` will close this goal.
+  * - ``rw``
+    - If ``f`` is a term of type ``P = Q`` (or ``P ↔ Q``), then 
 
-      If ``hp : P`` is an assumption then ``norm_num at hp,`` tries to use simplify ``hp`` using basic arithmetic operations.
+        ``rw f,`` searches for ``P`` in the target and replaces it with ``Q``.
 
-  * - ``ring`` 
-    - ``ring,`` is Lean's symbolic manipulator. 
-      If the target has a proof that involves *only* algebraic operations, 
-      then ``ring,`` will close the goal.
+        ``rw ←f,`` searches for ``Q`` in the target and replaces it with ``P``.
+      
+      Additionally, if ``hr : R`` is a hypothesis, then 
 
-      If ``hp : P`` is an assumption then ``ring at hp,`` tries to use simplify ``hp`` using basic algebraic operations.
+        ``rw f at hr,`` searches for ``P`` in the expression ``R`` and replaces it with ``Q``.
 
-  * - ``linarith`` 
-    - ``linarith,`` is Lean's inequality solver.
-  
-  * - ``simp`` 
-    - ``simp,`` is a very complex tactic that tries to use theorems from the mathlib library to close the goal. 
-      You should only ever use ``simp,`` to *close a goal* because its behavior changes as more theorems get added to the library.
+        ``rw ←f at hr,`` searches for ``Q`` in the expression ``R`` and replaces it with ``P``.
+
+      Mathematically, this is saying "because ``P = Q``, we can replace ``P`` with ``Q`` (or the other way around)".
+
+To get the left arrow, type ``\l``. If you want to rewrite a bunch of things in a row, you can type ``rw [h1, h2, h3],``.
 
 .. code:: lean 
 
-  import tactic data.nat.prime 
+  import tactic data.nat.basic
+  open nat 
 
   /--------------------------------------------------------------------------
 
-  ``norm_num``
+    ``rw``
+      
+      If ``f`` is a term of type ``P = Q`` (or ``P ↔ Q``), then 
+      ``rw f`` replaces ``P`` with ``Q`` in the target.
+      Other variants:
+        ``rw f at hp``, ``rw ←f``, ``rw ←f at hr``.
 
-    Useful for arithmetic.
-  
-  ``ring``
+    Delete the ``sorry,`` below and replace them with a legitimate proof.
 
-    Useful for basic algebra.
+    --------------------------------------------------------------------------/
 
-  ``linarith``
+  theorem add_self_self_eq_double 
+    (x : ℕ) 
+  : x + x = 2 * x := 
+  begin 
+    rw two_mul,
+  end 
 
-    Useful for inequalities.
-  
-  ``simp``
+  /-
+  For the following problem, use 
+    mul_comm a b : a * b = b * a 
+  -/
 
-    Complex simplifier. Use only to close goals.
+  example (a b c d : ℕ)
+    (hyp : c = d * a + b)
+    (hyp' : b = a * d)
+  : c = 2 * (a * d) :=
+  begin
+    sorry,
+  end
+
+  /-
+  For the following problem, use 
+    nat.sub_self (x : ℕ) : x - x = 0
+  -/
+
+  example (a b c d : ℕ)
+    (hyp : c = b * a - d)
+    (hyp' : d = a * b)
+  : c = 0 :=
+  begin
+    sorry,
+  end
+
+
+Surjective functions
+----------------------
+Recall that a function ``f : X → Y`` is surjective if for every ``y : Y`` there exists a term ``x : X``
+such that ``f(x) = y``. 
+In type theory, for every function ``f`` we can define a corresponding proposition 
+``surjective (f) := ∀ y, ∃ x, f x = y`` and a function being surjective is equivalent to saying that the proposition ``surjective(f)`` is inhabited.
+
+.. code:: lean 
+
+  import tactic 
+  open function
+
+  /--------------------------------------------------------------------------
+
+  ``rw``
+
+    If it gets hard to keep track of the definition of ``surjective``, 
+    you can use ``rw surjective,`` or ``rw surjective at h,`` 
+    to get rid of it. (This rewrites using the definition of surjective).
+    Typing ``rw surjective at *,`` will unfold it
+    everywhere at once.
 
   Delete the ``sorry,`` below and replace them with a legitimate proof.
 
   --------------------------------------------------------------------------/
-  
-  example : 1 > 0 :=
+
+  variables X Y Z : Type
+  variables (f : X → Y) (g : Y → Z)
+
+  /-
+  surjective (f : X → Y) := ∀ y, ∃ x, f x = y
+
+  You may also want to try ``function.comp_app``
+  -/
+
+  example 
+    (hf : surjective f) 
+    (hg : surjective g) 
+    : surjective (g ∘ f) :=
   begin
     sorry,
   end
 
-  example (m a b : ℕ) :  m^2 + (a + b) * m + a * b = (m + a) * (m + b) :=
+  example 
+    (hgf : surjective (g ∘ f)) 
+    : surjective g :=
   begin
     sorry,
   end
-
-  example : 101 ∣ 2020 :=
-  begin
-    sorry,
-  end
-
-
-  #print nat.prime 
-  example : nat.prime 101 := 
-  begin 
-    sorry,
-  end
-
-  -- you will need the definition 
-  -- a ∣ b := (∃ k : ℕ, a = b * k)
-  example (m a b : ℕ) :  m + a ∣ m^2 + (a + b) * m + a * b :=
-  begin
-    sorry,
-  end
-
-  -- try ``unfold nat.prime at hp,`` to get started
-  example (p : ℕ) (hp : nat.prime p) : ¬ (p = 1) :=
-  begin 
-    sorry,
-  end 
-
-  -- if none of the simplifiers work, try doing ``contrapose!``
-  -- sometimes the simplifiers need a little help
-  example (n : ℕ) : 0 < n ↔ n ≠ 0 :=
-  begin
-    sorry,
-  end
-
-
-

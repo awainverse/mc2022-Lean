@@ -7,35 +7,26 @@ Bits & Pieces
 Namespaces 
 ===========
 
-.. todo:: 
-
-  Proof-read this file, clean the language and fix any typos.
-
-
-.. todo:: 
-
-  Add final remarks.
-
 
 Lean provides us with the ability to group definitions into nested, hierarchical *namespaces*:
 
 .. code-block:: lean
 
-  namespace vmcsp
-    def tau := "TAU on M-Th from 1-3"
+  namespace mcsp
+    def tau := "TAU on T-F from 1-3"
     #eval tau
-  end vmcsp
+  end mcsp
 
-  def tau := "no TAU on F"
+  def tau := "no TAU on S"
   #eval tau
-  #eval vmcsp.tau
+  #eval mcsp.tau
 
-  open vmcsp
+  open mcsp
 
   #eval tau -- error
-  #eval vmcsp.tau
+  #eval mcsp.tau
 
-When we declare that we are working in the namespace ``vmscp``, every identifier we declare has a full name with prefix "``vmscp``". 
+When we declare that we are working in the namespace ``mscp``, every identifier we declare has a full name with prefix "``mscp``". 
 Within the namespace, we can refer to identifiers by their shorter names, but once we end the namespace, we have to use the longer names.
 
 The ``open`` command brings the shorter names into the current context. Often, when we import a theory file, we will want to open one or more of the namespaces it contains, to have access to the short identifiers. 
@@ -74,7 +65,7 @@ The tactic for getting rid of coercions is ``norm_cast`` which will reduce the a
   theorem sqrt2_irrational_nat : 
     ¬ ∃ (m n : ℕ),
     2 * (m * m) = (n * n) ∧ 
-    m ≠ 0
+    0 < m
   :=
   begin
     sorry,
@@ -84,39 +75,36 @@ The tactic for getting rid of coercions is ``norm_cast`` which will reduce the a
 
   lemma num_2 : (2 : ℚ).num = 2 := 
   begin 
-    ring,
+    sorry,
   end
 
-  lemma div_2 : (2 : ℚ).denom = 1 := 
+  lemma denom_2 : (2 : ℚ).denom = 1 := 
   begin 
-    ring,
+    sorry,
   end
 
   /-
   q.denom = denominator of q (valued in ℕ)
   q.num = numerator of q (valued in ℤ)
-  
-  for integer m, 
+
+  for integer m,
   m.nat_abs = absolute value of m (valued in ℕ)
+
+  int.nat_abs_mul_self' : ∀ (a : ℤ), ↑(a.nat_abs) * ↑(a.nat_abs) = a * a
+  int.coe_nat_inj : ∀ {m n : ℕ}, ↑m = ↑n → m = n
 
   rat.mul_self_denom : ∀ (q : ℚ), (q * q).denom = q.denom * q.denom
   rat.mul_self_num : ∀ (q : ℚ), (q * q).num = q.num * q.num
-  int.nat_abs_mul_self' : ∀ (a : ℤ), ↑(a.nat_abs) * ↑(a.nat_abs) = a * a
   rat.denom_ne_zero : ∀ (q : ℚ), q.denom ≠ 0
-  -/
-
-  /-
-  Use ``squeeze_simp at hp,`` to commute products with coercions. 
-  See the goal window!
+  
   -/
 
   theorem sqrt2_irrational : 
   ¬ (∃ q : ℚ, 2 = q * q) 
   :=
   begin
-    by_contradiction,
-    cases a with q key,
-    have clear_denom := rat.eq_iff_mul_eq_mul.mp key,
+    rintro ⟨q, h⟩,
+    have clear_denom := rat.eq_iff_mul_eq_mul.mp h,
     sorry,
   end
 
@@ -187,8 +175,8 @@ you'll see that first fifty lines of code prove that ``ℤ`` is an instance of s
   (has_generator:  ∃ g : G, ∀ x : G, ∃ n : ℤ, x = g^n)
 
   /-
-  gpow_add : ∀ {G : Type u_1} (a : G) (m n : ℤ), a ^ (m + n) = a ^ m * a ^ n
-  add_comm : ∀ {G : Type u_1} (a b : G), a + b = b + a
+  zpow_add : ∀ {G : Type u_1} [group G] (a : G) (m n : ℤ), a ^ (m + n) = a ^ m * a ^ n
+  add_comm : ∀ {G : Type u_1} [add_comm_semigroup G] (a b : G), a + b = b + a
   -/
 
   lemma mul_comm_of_cyclic
@@ -200,3 +188,62 @@ you'll see that first fifty lines of code prove that ``ℤ`` is an instance of s
     have has_generator := hc.has_generator,
     sorry,
   end
+
+Recursion and Induction
+===========================
+Lots of things in Lean are defined using recursion and proved using induction.
+While this extends beyond just the natural numbers,
+let's try some familiar examples using the natural numbers and the familiar principle of induction.
+
+First let's see how to make a recursive definition. I'll define afunction called ``sum_first : ℕ → ℕ``
+so that ``sum_first n`` is the sum of the first ``n`` natural numbers.
+
+.. code:: lean 
+
+  import data.nat.basic
+  import tactic
+
+  def sum_first :
+    ℕ → ℕ -- the type of the function you want to define recursively
+  | 0 := 0 -- the definition at 0
+  | (n + 1) := sum_first n + (n + 1) -- the definition at (n + 1), which can use the definition at n
+
+Now let's prove the famous closed formula for ``sum_first n``, using induction.
+To do this, we'll want the following two tactics:
+
+.. list-table:: 
+  :widths: 10 90
+  :header-rows: 0
+
+  * - ``induction``
+    - If ``n : ℕ`` is a natural number variable, ``P : ℕ → Prop`` is a property of natural numbers,
+     and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.
+
+     One has target ``P 0``, this is the base case.
+
+     The other has target ``P (k.succ)``, where ``k.succ = k + 1``.
+     (You can rewrite away the ``.succ`` with ``nat.succ_eq_add_one``.)
+     You're also provided an induction hypothesis, ``ih : P k``.
+
+  * - ``refl`` 
+    - ``refl,`` proves things that are literally true by definition.
+      Often this will handle your base case.
+
+Now let's try the proof. Remember that ``rw`` can be useful for unfolding definitions.
+
+.. code:: lean 
+
+  import data.nat.basic
+  import tactic
+
+  def sum_first :
+    ℕ → ℕ -- the type of the function you want to define recursively
+  | 0 := 0 -- the definition at 0
+  | (n + 1) := sum_first n + (n + 1) -- the definition at (n + 1), which can use the definition at n
+
+  example : ∀ (n : ℕ), 2 * sum_first n = (n + 1) * n :=
+  begin
+    sorry,
+  end
+
+If you want more practice proving things about natural numbers, including plenty of induction, try the `Natural Number Game <https://www.ma.imperial.ac.uk/~buzzard/xena/natural_number_game/>`_.

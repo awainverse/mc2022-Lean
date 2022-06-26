@@ -7,7 +7,8 @@ Try
 
 .. code:: 
   
-    by_contradiction,
-    have b := a(barber),
-    cases b with b1 b2,
-    by_cases shaves barber barber,
+    rintro h,
+    cases h barber with h1 h2,
+    cases em (shaves barber barber) with hyes hno,
+    { sorry, },
+    { sorry, } 

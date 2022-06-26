@@ -49,9 +49,9 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = 'Lean at MC 2020'
-copyright = '2020, Apurva Nakade, Jalex Stark'
-author = 'Apurva Nakade, Jalex Stark'
+project = 'Lean at MC 2022'
+copyright = '2022, Aaron Anderson, Apurva Nakade, Jalex Stark'
+author = 'Aaron Anderson, Apurva Nakade, Jalex Stark'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -100,7 +100,7 @@ html_theme_options = {
     'head_font_family': 'Times New Roman, Times, serif',
     'code_bg': 'white',
     'code_font_size': '10pt',
-    'extra_nav_links': {'PDF version':'../latex/lean_at_mc2020.pdf',
+    'extra_nav_links': {'PDF version':'../latex/lean_at_mc2022.pdf',
                         'Lean Live Editor': 'https://leanprover-community.github.io/lean-web-editor/',
                         'Lean Documentation': 'https://leanprover-community.github.io/mathlib_docs/',
                         'Leanprover Community':'https://leanprover-community.github.io/'},
@@ -136,7 +136,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'lean_at_mc2020'
+htmlhelp_basename = 'lean_at_mc2022'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -174,8 +174,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'lean_at_mc2020.tex', 'Lean at MC2020',
-     'Apurva Nakade \\and Jalex Stark', 'manual'),
+    (master_doc, 'lean_at_mc2022.tex', 'Lean at MC2022',
+     'Aaron Anderson, Apurva Nakade \\and Jalex Stark', 'manual'),
 ]
 
 
@@ -184,7 +184,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'lean_at_mc2020', 'Lean at MC2020',
+    (master_doc, 'lean_at_mc2022', 'Lean at MC2022',
      [author], 1)
 ]
 
@@ -194,7 +194,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'lean_at_mc2020', 'Leat an MC2020',
-     author, 'lean_at_mc2020', 'Theorem proving using Lean for Mathcamp 2020',
+    (master_doc, 'lean_at_mc2022', 'Leat an MC2022',
+     author, 'lean_at_mc2022', 'Theorem proving using Lean for Mathcamp 2022',
      'Miscellaneous'),
 ]
