@@ -7,7 +7,7 @@ Try
 
 .. code:: 
   
-    by_contradiction,
-    have b := a(barber),
+    rintro h,
+    cases h barber with h1 h2,
 
 Need more :doc:`hints <../hint_2_barber_paradox>`? 

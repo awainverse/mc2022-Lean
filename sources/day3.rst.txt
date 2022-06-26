@@ -4,132 +4,125 @@
 Infinitely Many Primes
 ***********************
 
-.. todo:: 
-
-  Proof-read this file, clean the language and fix any typos.
-
 Today we will prove that there are infinitely many primes using `mathlib library <https://leanprover-community.github.io/mathlib_docs/>`__. Our focus will be on how to *use* the library to prove more complicated theorems. Remember to always **save your work**.
+First, we're going to need to learn how Lean deals with divisibility of natural numbers.
 
-Equality 
-===========
-So far we have not seen how to deal with propositions of the form ``P = Q``, for example, ``1 + 2 + ... + n = n(n + 1)/2``. Proving these propositions by hand requires messing around with the axioms of type theory.
-The standard trick is to make the LHS (almost) equal or to the RHS and then use one of the simplifiers (``norm_num``, ``ring``, ``linarith``, or ``simp``) to close the goal. *Using* equalities on the other hand is very easy. The rewrite tactic (usually shortened to ``rw``) let's you replace the left hand side of an equality with the right hand side.
+Divisibility and Primes
+===================
+In mathlib, divisibility for natural numbers is defined as the following *proposition*.
+
+.. code:: 
+
+  a ∣ b := (∃ k : ℕ, a = b * k)
+
+For example, ``2 | 4`` will be a proposition ``∃ k : ℕ, 4 = 2 * k``. 
+**Very important.** The statement ``2 | 4`` is not saying that "2 divides 4 *is true*". 
+It is simply a proposition that requires a proof. 
+**Warning:** If you need to type the divisibility symbol, type ``\mid``. 
+This is **not** the vertical line on your keyboard.
+
+Similarly, the mathlib library also contains a definition of ``prime``.
+It's a little complicated, but the library has this theorem connecting it back to the definition you know:
+
+.. code:: 
+
+    theorem nat.prime_def_lt'' {p : ℕ} :
+      nat.prime p ↔
+        2 ≤ p                                     -- p is at least 2
+        ∧                                         -- and
+        ∀ {m : ℕ}, m ∣ p, m = 1 ∨ m = p           -- if m divides p, then m = 1 or m = p.
+
+
+Same as with divisibility, for every natural number ``n``, 
+``nat.prime n`` is a *proposition*.
+So that ``nat.prime 101`` requires a proof.
+It is possible to go down the rabbit hole and prove it using just the axioms of natural numbers.
+However, this is exhausting work, and exactly the kind of thing we'd rather the computer do!
+
+Trivial calculations
+===================
+Here are two of Lean's many tactics that automate basic calculations for us.
 
 .. list-table:: 
   :widths: 10 90
   :header-rows: 0
 
-  * - ``rw``
-    - If ``f`` is a term of type ``P = Q`` (or ``P ↔ Q``), then 
+  * - ``norm_num``
+    - ``norm_num`` is Lean’s calculator. If the target has a proof that involves *only* numbers and arithmetic operations,
+      then ``norm_num`` will close this goal.
 
-        ``rw f,`` searches for ``P`` in the target and replaces it with ``Q``.
+      If ``hp : P`` is an assumption then ``norm_num at hp,`` tries to use simplify ``hp`` using basic arithmetic operations.
 
-        ``rw ←f,`` searches for ``Q`` in the target and replaces it with ``P``.
-      
-      Additionally, if ``hr : R`` is a hypothesis, then 
+  * - ``ring_nf`` 
+    - ``ring_nf,`` is Lean's algebraic manipulator. 
+      If the target has a proof that involves *only* algebraic operations, 
+      then ``ring_nf,`` will close the goal.
 
-        ``rw f at hr,`` searches for ``P`` in the expression ``R`` and replaces it with ``Q``.
+      If ``hp : P`` is an assumption then ``ring_nf at hp,`` tries to use simplify ``hp`` using basic algebraic operations.
 
-        ``rw ←f at hr,`` searches for ``Q`` in the expression ``R`` and replaces it with ``P``.
-
-      Mathematically, this is saying "because ``P = Q``, we can replace ``P`` with ``Q`` (or the other way around)".
-
-To get the left arrow, type ``\l`` followed by tab. 
-
+  * - ``linarith`` 
+    - ``linarith,`` is Lean's inequality solver.
+  
 .. code:: lean 
 
-  import tactic data.nat.basic
-  open nat 
+  import tactic data.nat.prime 
 
   /--------------------------------------------------------------------------
 
-    ``rw``
-      
-      If ``f`` is a term of type ``P = Q`` (or ``P ↔ Q``), then 
-      ``rw f`` replaces ``P`` with ``Q`` in the target.
-      Other variants:
-        ``rw f at hp``, ``rw ←f``, ``rw ←f at hr``.
+  ``norm_num``
 
-    Delete the ``sorry,`` below and replace them with a legitimate proof.
+    Useful for arithmetic.
+  
+  ``ring_nf``
 
-    --------------------------------------------------------------------------/
+    Useful for basic algebra.
 
-  theorem add_self_self_eq_double 
-    (x : ℕ) 
-  : x + x = 2 * x := 
-  begin 
-    ring,
-  end 
+  ``linarith``
 
-  /-
-  For the following problem, use 
-    mul_comm a b : a * b = b * a 
-  -/
-
-  example (a b c d : ℕ)
-    (hyp : c = d * a + b)
-    (hyp' : b = a * d)
-  : c = 2 * (a * d) :=
-  begin
-    sorry,
-  end
-
-  /-
-  For the following problem, use 
-    sub_self (x : ℕ) : x - x = 0
-  -/
-
-  example (a b c d : ℕ)
-    (hyp : c = b * a - d)
-    (hyp' : d = a * b)
-  : c = 0 :=
-  begin
-    sorry,
-  end
-
-
-Surjective functions
-----------------------
-Recall that a function ``f : X → Y`` is surjective if for every ``y : Y`` there exists a term ``x : X``
-such that ``f(x) = y``. 
-In type theory, for every function ``f`` we can define a corresponding proposition 
-``surjective (f) := ∀ y, ∃ x, f x = y`` and a function being surjective is equivalent to saying that the proposition ``surjective(f)`` is inhabited.
-
-.. code:: lean 
-
-  import tactic 
-  open function
-
-  /--------------------------------------------------------------------------
-
-  ``unfold``
-
-    If it gets hard to keep track of the definition of ``surjective``, 
-    you can use ``unfold surjective,`` or ``unfold surjective at h,`` 
-    to get rid of it.
+    Useful for inequalities.
+    
 
   Delete the ``sorry,`` below and replace them with a legitimate proof.
 
   --------------------------------------------------------------------------/
-
-  variables X Y Z : Type
-  variables (f : X → Y) (g : Y → Z)
-
-  /-
-  surjective (f : X → Y) := ∀ y, ∃ x, f x = y
-  -/
-
-  example 
-    (hf : surjective f) 
-    (hg : surjective g) 
-    : surjective (g ∘ f) :=
+  
+  example : 1 > 0 :=
   begin
     sorry,
   end
 
-  example 
-    (hgf : surjective (g ∘ f)) 
-    : surjective g :=
+  example : 101 ∣ 2020 :=
+  begin
+    sorry,
+  end
+
+  example : nat.prime 101 := 
+  begin 
+    sorry,
+  end
+
+  example (m a b : ℕ) :  m^2 + (a + b) * m + a * b = (m + a) * (m + b) :=
+  begin
+    sorry,
+  end
+
+  example (a b c : ℕ) : a < b → b ≤ c → a < c :=
+  begin
+    sorry,
+  end
+
+  example (m a b : ℕ) :  m + a ∣ m^2 + (a + b) * m + a * b :=
+  begin
+    sorry,
+  end
+
+  -- try ``rw nat.prime_def_lt'' at hp,`` to get started
+  example (p : ℕ) (hp : nat.prime p) : ¬ (p = 1) :=
+  begin 
+    sorry,
+  end
+
+  example (a b : ℕ) : ¬ a ≤ b → b < a :=
   begin
     sorry,
   end
@@ -162,8 +155,6 @@ If you need a term of type ``n > 0`` and you only have ``hn : 0 < n``, then you 
 
 We will need the following lemma later. Remember to save your proof. 
 (Here's a :doc:`hint <../hint_1_have_exercise>` if you need one.)
-**Warning:** If you need to type the divisibility symbol, type ``\mid``. 
-This is **not** the vertical line on your keyboard.
 
 .. code:: lean 
 
@@ -189,7 +180,7 @@ This is **not** the vertical line on your keyboard.
 
   --------------------------------------------------------------------------/
 
-  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → (p ∣ 1) :=
+  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → p = 1 :=
   begin
     sorry,
   end
@@ -231,17 +222,18 @@ You should take your time, check the goal window at every step, and sketch out t
 
   open nat
 
-  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → (p ∣ 1) :=
+  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → p = 1 :=
   begin
     sorry,
   end
 
   /-
-  dvd_sub_one : (p ∣ a) → (p ∣ a + 1) → (p ∣ 1)
+  dvd_sub_one : (p ∣ a) → (p ∣ a + 1) → p = 1
 
   m ∣ n := ∃ k : ℕ, m = n * k
   m.prime :=  2 ≤ p ∧ (∀ (m : ℕ), m ∣ p → m = 1 ∨ m = p)
-  prime.not_dvd_one : (prime p) → ¬ p ∣ 1
+  nat.not_prime_one : ¬ nat.prime 1
+  nat.prime.pos : ∀ {p : ℕ}, nat.prime p → 0 < n.min_fac
 
   n.fact := n! (n factorial)
   fact_pos : ∀ (n : ℕ), 0 < n.fact
@@ -273,4 +265,4 @@ So theorem proving is Lean often involves the following steps:
 
 * Break the theorem into small lemmas so that you can use the simplifiers more frequently.
 
-The hope is that one day we won’t have to do this and a theorem proving AI will eliminate the difference between human proofs and machine proofs.
+As time goes on, we hope that theorem proving AIs can do more and more of this work and eventually eliminate the difference between human proofs and machine proofs.

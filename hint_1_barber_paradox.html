@@ -1,24 +1,24 @@
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="ascii" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hint 1 for the barber paradox &#8212; Lean at MC 2020 0.1 documentation</title>
-    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
-    <script id="documentation_options" data-url_root="./" src="static/documentation_options.js"></script>
-    <script src="static/jquery.js"></script>
-    <script src="static/underscore.js"></script>
-    <script src="static/doctools.js"></script>
-    <script src="static/language_data.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="shortcut icon" href="static/favicon.ico"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Hint 1 for the barber paradox &#8212; Lean at MC 2022 0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/favicon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
-  <link rel="stylesheet" href="static/custom.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
   
   <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
@@ -33,15 +33,15 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="hint-1-for-the-barber-paradox">
-<span id="hint-1-barber-paradox"></span><h1>Hint 1 for the barber paradox<a class="headerlink" href="#hint-1-for-the-barber-paradox" title="Permalink to this headline">&#182;</a></h1>
+  <section id="hint-1-for-the-barber-paradox">
+<span id="hint-1-barber-paradox"></span><h1>Hint 1 for the barber paradox<a class="headerlink" href="#hint-1-for-the-barber-paradox" title="Permalink to this heading">&#182;</a></h1>
 <p>Try</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">by_contradiction</span><span class="p">,</span>
-<span class="n">have</span> <span class="n">b</span> <span class="p">:</span><span class="o">=</span> <span class="n">a</span><span class="p">(</span><span class="n">barber</span><span class="p">),</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rintro</span> <span class="n">h</span><span class="p">,</span>
+<span class="n">cases</span> <span class="n">h</span> <span class="n">barber</span> <span class="k">with</span> <span class="n">h1</span> <span class="n">h2</span><span class="p">,</span>
 </pre></div>
 </div>
 <p>Need more <a class="reference internal" href="hint_2_barber_paradox.html"><span class="doc">hints</span></a>?</p>
-</div>
+</section>
 
 
           </div>
@@ -50,7 +50,7 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">Lean at MC 2020</a></h1>
+<h1 class="logo"><a href="index.html">Lean at MC 2022</a></h1>
 
 
 
@@ -72,14 +72,14 @@
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="symbols.html">Pretty Symbols in Lean</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tactics.html">Glossary of tactics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tactics.html">Glossary of Tactics and Lemmas</a></li>
 </ul>
 
 
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="latex/lean_at_mc2020.pdf">PDF version</a></li>
+    <li class="toctree-l1"><a href="../latex/lean_at_mc2022.pdf">PDF version</a></li>
     
     <li class="toctree-l1"><a href="https://leanprover-community.github.io/lean-web-editor/">Lean Live Editor</a></li>
     
@@ -93,25 +93,25 @@
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
       <input type="submit" value="Go" />
     </form>
     </div>
 </div>
-<script>$('#searchbox').show(0);</script>
+<script>document.getElementById('searchbox').style.display = "block"</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
     <div class="footer">
-      &copy;2020, Apurva Nakade, Jalex Stark.
+      &copy;2022, Aaron Anderson, Apurva Nakade, Jalex Stark.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.1</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
-      <a href="sources/hint_1_barber_paradox.rst.txt"
+      <a href="_sources/hint_1_barber_paradox.rst.txt"
           rel="nofollow">Page source</a>
     </div>
 

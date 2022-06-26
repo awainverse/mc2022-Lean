@@ -4,10 +4,6 @@
 Sqrt 2 is irrational
 **************************
 
-.. todo:: 
-
-  Proof-read this file, clean the language and fix any typos.
-
 
 Today we will teach Lean that :math:`\sqrt{2}` is irrational.
 Let us start by reviewing some concepts we encountered yesterday.
@@ -80,7 +76,7 @@ will immediately create a term of type ``10 ≠ 1``. More generally, remember th
 
 Sqrt(2) is irrational
 =======================
-We will show that there do not exist non-zero natural numbers ``m`` and ``n`` such that 
+We will show that there do not exist positive natural numbers ``m`` and ``n`` such that 
 
 .. code:: 
 
@@ -107,7 +103,7 @@ Lemmas for proving (*) assuming m and n are coprime.
 
   import tactic
   import data.nat.basic
-  import data.nat.prime
+  import data.nat.parity
 
 
   noncomputable theory
@@ -117,18 +113,16 @@ Lemmas for proving (*) assuming m and n are coprime.
 
   --BEGIN--
   /-
-  prime.dvd_of_dvd_pow : ∀ {p m n : ℕ}, p.prime → p ∣ m ^ n → p ∣ m
+  nat.prime.dvd_of_dvd_pow : ∀ {p m n : ℕ}, p.prime → p ∣ m ^ n → p ∣ m
+
+  Challenge mode: start with nat.even_or_odd instead
   -/
-  lemma two_dvd_of_two_dvd_sq {k : ℕ} 
-    (hk : 2 ∣ k ^ 2) 
-  : 2 ∣ k :=
+  lemma two_dvd_of_two_dvd_sq {k : ℕ} (hk : 2 ∣ k^2) :
+    2 ∣ k :=
   begin
-    apply prime.dvd_of_dvd_pow,
     sorry,
   end
 
-  -- to switch the target from ``P = Q`` to ``Q = P``, 
-  -- use the tactic ``symmetry,``
   lemma division_lemma_n {m n : ℕ} 
     (hmn : 2 * m ^ 2 = n ^ 2) 
   : 2 ∣ n :=
@@ -145,7 +139,6 @@ Lemmas for proving (*) assuming m and n are coprime.
     (hmn : 2 * m ^ 2 = n ^ 2) 
   : 2 ∣ m :=
   begin
-    apply two_dvd_of_two_dvd_sq,
     sorry,
   end
   --END--
@@ -200,9 +193,9 @@ Prove (*) assuming m and n are coprime.
     m.coprime n 
   :=
   begin
-    by_contradiction,
-    rcases a with ⟨m, n, hmn, h_cop⟩, 
-    -- rcases is a way of doing cases iteratively
+    rintro ⟨m, n, hmn, h_cop⟩,
+    -- these brackets let you combine ``rintro`` with (several iterations of) ``cases``
+    -- try using ``rintro h`` and then ``rcases h with ⟨m, n, hmn, h_cop⟩,`` instead
     -- you get the brackets by typing ``\langle`` and ``\rangle``
     sorry,
   end
@@ -211,7 +204,7 @@ Prove (*) assuming m and n are coprime.
 
   
 
-Lemmas for proving (*) assuming m ≠ 0
+Lemmas for proving (*) assuming 0 < m
 ------------------------------------------------------------------------------
 .. code:: lean 
 
@@ -239,16 +232,6 @@ Lemmas for proving (*) assuming m ≠ 0
 
   --BEGIN--
 
-
-  lemma ne_zero_ge_zero {n : ℕ} 
-    (hne : n ≠ 0) 
-  : (0 < n)
-  :=
-  begin 
-    contrapose! hne,
-    sorry,
-  end 
-
   /-
   nat.pow_pos : ∀ {p : ℕ}, 0 < p → ∀ (n : ℕ), 0 < p ^ n
   -/
@@ -264,15 +247,15 @@ Lemmas for proving (*) assuming m ≠ 0
   : 2 * m ^ 2 = n ^ 2
   := 
   begin 
-    apply (nat.mul_left_inj hk_pos).mp,
-    ring at *,
+    rw ← nat.mul_left_inj hk_pos, -- multiply on both sides by k^2
+    ring_nf at *,
     exact hmn,
   end 
 
   --END--
 
 
-Prove (*) assuming m ≠ 0
+Prove (*) assuming 0 < m
 ------------------------------------------------------------------------------
 .. code:: lean 
 
@@ -296,15 +279,6 @@ Prove (*) assuming m ≠ 0
     sorry,
   end
 
-  lemma ne_zero_ge_zero {n : ℕ} 
-    (hne : n ≠ 0) 
-  : (0 < n)
-  :=
-  begin 
-    contrapose! hne,
-    sorry,
-  end 
-  
   lemma ge_zero_sq_ge_zero {n : ℕ} (hne : 0 < n) : (0 < n^2)
   :=
   begin 
@@ -331,14 +305,13 @@ Prove (*) assuming m ≠ 0
   theorem wlog_coprime :
     (∃ (m n : ℕ),
     2 * m^2 = n^2 ∧
-    m ≠ 0 )
+    0 < m )
     → (∃ (m' n' : ℕ),
       2 * m'^2 = n'^2 ∧
       m'.coprime n' )
   :=
   begin
-    intro key,  
-    rcases key with ⟨m, n, hmn, hme0⟩,
+    rintro ⟨m, n, hmn, hme0⟩,
     set k := m.gcd n with hk, 
     -- might be useful to declutter
     -- you can replace all the ``m.gcd n`` with ``k`` using ``rw ←hk,`` if needed
@@ -348,7 +321,7 @@ Prove (*) assuming m ≠ 0
   theorem sqrt2_irrational'' : 
     ¬ ∃ (m n : ℕ),
     2 * m^2 = n^2 ∧ 
-    m ≠ 0
+    0 < m
   :=
   begin
     sorry,

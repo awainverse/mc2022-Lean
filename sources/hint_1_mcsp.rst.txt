@@ -7,7 +7,9 @@ Try
 
 .. code:: 
   
-  by_cases (∃ bob : camper, ¬ singing bob),
-  cases h with bob key,
+  cases em (∃ bob : camper, ¬ singing bob) with hyes hno,
+  { cases hyes with bob key,
+    sorry, },
+  { sorry, }
 
 Need more :doc:`hints <../hint_2_mcsp>`? 

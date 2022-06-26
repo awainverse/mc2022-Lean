@@ -1,6 +1,6 @@
 
 
-Lean at MC 2020
+Lean at MC 2022
 ===================
 
 .. toctree::

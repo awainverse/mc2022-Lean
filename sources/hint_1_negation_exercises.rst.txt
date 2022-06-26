@@ -7,6 +7,6 @@ If your target is ``¬ Q``, then try using
 
 .. code:: 
   
-  intro hq,
+  rintro hq,
 
 Need more :doc:`hints <../hint_2_negation_exercises>`? 
