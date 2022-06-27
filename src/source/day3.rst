@@ -143,7 +143,7 @@ This is done in Lean using the ``have`` tactic.
 
 The use of ``have`` that we have already seen is related to this one. 
 When you use the tactic ``have hq := f(hp),``
-Lean is internally replacing it with ``have hq : Q, exact f(hp),``.
+Lean is internally replacing it with ``have hq : Q, refine f(hp),``.
 
 ``have`` is crucial for being able to use theorems from the library.
 To use these theorems you have to create terms that match the hypothesis *exactly*.

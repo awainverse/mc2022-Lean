@@ -42,11 +42,11 @@ Proofs as functions
 Every time you successfully construct a proof of a theorem say 
 
 .. code:: 
-
+  
   theorem tautology (P : Prop) : P → P :=
   begin
-    intro hp,
-    exact hp,
+    rintro hp,
+    refine hp,
   end
 
 Lean constructs a *proof term* ``tautology : ∀ P : Prop, P → P`` 
@@ -75,7 +75,7 @@ Once constructed, any term can be used in a later proof. For example,
 
   example (P Q : Prop) : (P → Q) → (P → Q) :=
   begin
-    exact tautology (P → Q),
+    refine tautology (P → Q),
   end
 
 This is how Lean simulates mathematics.
@@ -85,7 +85,22 @@ only remembers its type.
 All the proof terms can then be used in later proofs.
 All of this falls under the giant umbrella of the `Curry--Howard correspondence <https://en.wikipedia.org/wiki/Curry%E2%80%93Howard_correspondence>`__.
 
-We'll now introduce an axiom which will give us the full power of proof by contradiction.
+Optional Sidenote on Lambda
+----------
+
+Speaking of generalized functions, and terms, we can define the term ``tautology`` directly, without using ``rintro``:
+
+.. code:: 
+  
+  theorem tautology (P : Prop) : P → P :=
+  begin
+    refine λ hp, hp,
+  end
+
+The ``λ``, typed ``\lambda``, plays basically the role of ``rintro``.
+In general, the term ``λ x, y`` will define a (generalized) function that on input ``x``, gives output ``y``.
+For instance, once we can talk about addition, ``λ x, x + 2`` will be the function that adds 2 to a given natural number.
+If you want to, you can play around with using ``λ`` and ``rintro`` interchangeably.
 
 The Law of the Excluded Middle
 ========================
@@ -93,6 +108,8 @@ You can prove exactly one of the following using just ``refine``, ``rintro``, an
 Can you find which one?
 
 .. code:: lean
+
+  import tactic
 
   /--------------------------------------------------------------------------
 

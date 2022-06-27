@@ -249,7 +249,7 @@ Lemmas for proving (*) assuming 0 < m
   begin 
     rw ← nat.mul_left_inj hk_pos, -- multiply on both sides by k^2
     ring_nf at *,
-    exact hmn,
+    refine hmn,
   end 
 
   --END--

@@ -118,6 +118,7 @@ The first two tactics we'll learn are ``refine`` and ``rintro``.
 .. code:: lean
   :name: refine_rintro_examples
 
+  import tactic
   /--------------------------------------------------------------------------
 
   ``refine``
@@ -194,6 +195,7 @@ When writing a big proof, you often want a healthy combination of the two that m
 .. code:: lean 
   :name: have_apply_examples
 
+  import tactic
   /--------------------------------------------------------------------------
 
   ``have``
@@ -333,9 +335,28 @@ Then if you put your cursor in between the brackets, the goal monitor on the rig
 
   --END--
 
+Optional Sidenote on Brackets
+----------
+
+We've discussed that building a term of type ``P`` is pretty much the same thing as providing a proof of ``P``.
+We've also seen that if you want to provide a term of type ``P ∧ Q``, all you need is a term ``hp : P``, a term ``hq : Q``, and the ``split`` tactic.
+However, you don't *need* the ``split`` tactic for this, you can also build the term directly, using the angle brackets ``⟨⟩``, typed with ``\langle`` and ``\rangle``.
+For example:
+
+.. code::
+
+    example (P Q : Prop) (hp : P) (hq : Q) : P ∧ Q :=
+    begin
+      refine ⟨hp, hq⟩,
+    end
+
+This works because ``⟨hp, hq⟩`` is a term of type ``P ∧ Q``, because Lean defines ``P ∧ Q`` to be the type of ordered pairs, consisting of a term of type ``P`` and then a term of type ``Q``.
+If you want to explore this, try using this to rewrite your above proofs that use ``∧``.
+(If you do, what does ``refine ⟨_, _⟩,`` do?)
 
 Negation 
-----------
+===============
+
 In type theory, there is a special proposition ``false : Prop`` which has no proof (hence is *empty*).
 The negation of a proposition ``¬ P`` is the implication ``P → false``.
 Such a function exists if and only if ``P`` itself is empty (`empty function <https://en.wikipedia.org/wiki/Function_(mathematics)#empty_function>`_), hence ``P → false`` is inhabited if and only if ``P`` is empty which justifies using it as the definition of ``¬ P``.
@@ -354,6 +375,7 @@ Here are some :doc:`hints <../hint_1_negation_exercises>` if you get stuck.
 .. code:: lean
   :name: negation_examples
 
+  import tactic
   /--------------------------------------------------------------------------
 
   Recall that 
@@ -387,6 +409,7 @@ In Lean, this is written as ``false → P``, and whenever you need it, there is 
 .. code:: lean
   :name: explosion_examples
 
+  import tactic
   /--------------------------------------------------------------------------
 
   Recall that for any ``P : Prop``, you can use ``false.elim : false → P``

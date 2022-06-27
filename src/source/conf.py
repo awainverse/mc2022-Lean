@@ -100,7 +100,7 @@ html_theme_options = {
     'head_font_family': 'Times New Roman, Times, serif',
     'code_bg': 'white',
     'code_font_size': '10pt',
-    'extra_nav_links': {'PDF version':'../latex/lean_at_mc2022.pdf',
+    'extra_nav_links': {'PDF version':'/latex/lean_at_mc2022.pdf',
                         'Lean Live Editor': 'https://leanprover-community.github.io/lean-web-editor/',
                         'Lean Documentation': 'https://leanprover-community.github.io/mathlib_docs/',
                         'Leanprover Community':'https://leanprover-community.github.io/'},
@@ -194,7 +194,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'lean_at_mc2022', 'Leat an MC2022',
+    (master_doc, 'lean_at_mc2022', 'Lean at MC2022',
      author, 'lean_at_mc2022', 'Theorem proving using Lean for Mathcamp 2022',
      'Miscellaneous'),
 ]

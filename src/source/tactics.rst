@@ -7,61 +7,61 @@ Glossary of Tactics and Lemmas
 Here's a summary of all the tactics and some of the lemmas we will introduce in this class, as well as some other common ones you may encounter.
 
 Implications in Lean 
-======================
+============== 
 
 .. list-table:: 
-   :widths: 20 80
-   :header-rows: 0
+  :widths: 10 90
+  :header-rows: 0
 
-   * - ``refine``
-     - If ``P`` is the target of the current goal 
-       and ``hp`` is a term of type ``P``,  
-       then ``refine hp,`` will close the goal.
+  * - ``refine``
+    - If ``P`` is the target of the current goal 
+      and ``hp`` is a term of type ``P``,  
+      then ``refine hp,`` will close the goal.
 
-       Mathematically, this saying "this is what we were required to prove".
+      Mathematically, this saying "this is what we were required to prove".
 
-       If you can't fully close a goal, but want to work somewhat from the end, you can use ``_`` to fill in the missing pieces.
-       For instance, if the target of the current goal is ``Q`` and 
-       ``f`` is a term of type ``P → Q``, then
-       ``refine f _,`` changes the target to ``P``.
+      If you can't fully close a goal, but want to work somewhat from the end, you can use ``_`` to fill in the missing pieces.
+      For instance, if the target of the current goal is ``Q`` and 
+      ``f`` is a term of type ``P → Q``, then
+      ``refine f _,`` changes the target to ``P``.
 
-       If you can fully close a goal, you can also type ``exact hp,``, which does pretty much the same thing.
+      If you can fully close a goal, you can also type ``exact hp,``, which does pretty much the same thing.
 
-   * - ``rintro``
-     - If the target of the current goal is a function ``P → Q``, 
-       then ``rintro hp,`` will produce a hypothesis 
-       ``hp : P`` and change the target to  ``Q``.
+  * - ``rintro``
+    - If the target of the current goal is a function ``P → Q``, 
+      then ``rintro hp,`` will produce a hypothesis 
+      ``hp : P`` and change the target to  ``Q``.
 
-       Mathematically, this is saying that in order to define a function from ``P`` to ``Q``,
-       we first need to choose (introduce) an arbitrary element of ``P``.
+      Mathematically, this is saying that in order to define a function from ``P`` to ``Q``,
+      we first need to choose (introduce) an arbitrary element of ``P``.
 
-       If you want to use this repeatedly, you can type ``rintro h1 h2`` instead of ``rintro h1,`` and then ``rintro h2,``.
-       If you want to use this to introduce a variable of a more complicated type that you would then apply ``cases`` to,
-       you can try something like ``rintro ⟨x1, x2, x3⟩,`` where ``⟨⟩`` are typed with ``\langle` and ``\rangle``.
-          
-   * - ``have``
-     - ``have`` is used to create intermediate variables. 
+      If you want to use this repeatedly, you can type ``rintro h1 h2`` instead of ``rintro h1,`` and then ``rintro h2,``.
+      If you want to use this to introduce a variable of a more complicated type that you would then apply ``cases`` to,
+      you can try something like ``rintro ⟨x1, x2, x3⟩,`` where ``⟨⟩`` are typed with ``\langle` and ``\rangle``.
+   
+  * - ``have``
+    - ``have`` is used to create intermediate variables. 
      
-       If ``f`` is a term of type ``P → Q`` and 
-       ``hp`` is a term of type ``P``, then
-       ``have hq := f(hp),`` creates the hypothesis ``hq : Q`` .
+      If ``f`` is a term of type ``P → Q`` and 
+      ``hp`` is a term of type ``P``, then
+      ``have hq := f(hp),`` creates the hypothesis ``hq : Q`` .
 
       You can also create subgoals with ``have hp : P,`` which will create a separate goal to prove ``P``.
       Once you have closed this goal, you'll have the hypothesis ``hp : P`` at your disposal.
      
-   * - ``apply``
-     - ``apply`` is used for backward reasoning. 
+  * - ``apply``
+    - ``apply`` is used for backward reasoning. 
 
-       If the target of the current goal is ``Q`` and 
-       ``f`` is a term of type ``P → Q``, then 
-       ``apply f,`` changes target to ``P``.
+      If the target of the current goal is ``Q`` and 
+      ``f`` is a term of type ``P → Q``, then 
+      ``apply f,`` changes target to ``P``.
 
-       Mathematically, this is equivalent to saying "because ``P`` implies ``Q``, to prove ``Q`` it suffices to prove ``P``".
-       This is similar to using ``refine _,``.
+      Mathematically, this is equivalent to saying "because ``P`` implies ``Q``, to prove ``Q`` it suffices to prove ``P``".
+      This is similar to using ``refine _,``.
 
 
 And / Or
-===================
+============== 
 
 .. list-table:: 
   :widths: 10 90
@@ -99,27 +99,29 @@ And / Or
   * - ``left``
     - If the target of the current goal is ``P ∨ Q``, then 
       ``left,`` changes the target to ``P``.
-  
+    
   * - ``right``
     - If the target of the current goal is ``P ∨ Q``, then 
       ``right,`` changes the target to ``Q``.
+    
+  * - ``rcases``
+    - ``rcases`` is a more general form of ``cases``. Needs the symbols ``⟨⟩``, which are typed with ``\langle`` and ``\rangle``.
 
-  * - ``rcases`` is a more general form of ``cases``. Needs the symbols ``⟨⟩``, which are typed with ``\langle`` and ``\rangle``.
+      For an example, say you have ``h : ∃ (m n : ℕ), 2 * m ^ 2 = n ^ 2 ∧ 0 < m``.
+      Then you can type ``rcases h with ⟨m, n, hmn, hme0⟩,`` to break ``h`` into its 4 component parts.
 
-    Example: Say you have ``h : ∃ (m n : ℕ), 2 * m ^ 2 = n ^ 2 ∧ 0 < m``.
-    Then you can type ``rcases h with ⟨m, n, hmn, hme0⟩,`` to break ``h`` into its 4 component parts.
 
 Negations and Proof by Contradiction
-========================
+============== 
 
 .. list-table:: 
   :widths: 10 90
-  :header-rows: 0  
+  :header-rows: 0
 
-* - ``false.elim``
+  * - ``false.elim``
     - Not a tactic, but a lemma.
 
-    If ``P : Prop``, then ``false.elim : false → P`` lets you prove ``P`` from a contradiction.
+      If ``P : Prop``, then ``false.elim : false → P`` lets you prove ``P`` from a contradiction.
 
   * - ``exfalso``
     - Changes the target of the current goal to ``false``.
@@ -127,10 +129,10 @@ Negations and Proof by Contradiction
       The name derives from `"ex falso, quodlibet" <https://en.wikipedia.org/wiki/Principle_of_explosion>`__ which translates to "from contradiction, anything". 
       You should use this tactic when there are contradictory hypotheses present. 
 
-* - ``em``
+  * - ``em``
     - Not a tactic, but a lemma.
 
-    If ``P : Prop``, then ``em P : P ∨ ¬ P`` lets you use the law of the excluded middle on ``P``.
+      If ``P : Prop``, then ``em P : P ∨ ¬ P`` lets you use the law of the excluded middle on ``P``.
 
   * - ``by_cases``
     - If ``P : Prop``, then ``by_cases hp : P,`` creates two goals, 
@@ -182,10 +184,6 @@ Quantifiers
     - If the target of the current goal is ``∀ x : X, P x``, then 
       ``rintro x,`` creates a hypothesis ``x : X`` and 
       changes the target to ``P x``.
-
-.. list-table:: 
-  :widths: 10 90
-  :header-rows: 0
 
   * - ``cases``
     - If ``hp`` is a term of type ``∃ x : X, P x``, then 
@@ -271,13 +269,13 @@ Induction
 
   * - ``induction``
     - If ``n : ℕ`` is a natural number variable, ``P : ℕ → Prop`` is a property of natural numbers,
-     and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.
+      and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.
 
-     One has target ``P 0``, this is the base case.
+      One has target ``P 0``, this is the base case.
 
-     The other has target ``P (k.succ)``, where ``k.succ = k + 1``.
-     (You can rewrite away the ``.succ`` with ``nat.succ_eq_add_one``.)
-     You're also provided an induction hypothesis, ``ih : P k``.
+      The other has target ``P (k.succ)``, where ``k.succ = k + 1``.
+      (You can rewrite away the ``.succ`` with ``nat.succ_eq_add_one``.)
+      You're also provided an induction hypothesis, ``ih : P k``.
 
   * - ``refl`` 
     - ``refl,`` proves things that are literally true by definition.
