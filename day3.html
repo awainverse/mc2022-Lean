@@ -176,7 +176,7 @@ adds <code class="docutils literal notranslate"><span class="pre">hp</span> <spa
 </table>
 <p>The use of <code class="docutils literal notranslate"><span class="pre">have</span></code> that we have already seen is related to this one.
 When you use the tactic <code class="docutils literal notranslate"><span class="pre">have</span> <span class="pre">hq</span> <span class="pre">:=</span> <span class="pre">f(hp),</span></code>
-Lean is internally replacing it with <code class="docutils literal notranslate"><span class="pre">have</span> <span class="pre">hq</span> <span class="pre">:</span> <span class="pre">Q,</span> <span class="pre">exact</span> <span class="pre">f(hp),</span></code>.</p>
+Lean is internally replacing it with <code class="docutils literal notranslate"><span class="pre">have</span> <span class="pre">hq</span> <span class="pre">:</span> <span class="pre">Q,</span> <span class="pre">refine</span> <span class="pre">f(hp),</span></code>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">have</span></code> is crucial for being able to use theorems from the library.
 To use these theorems you have to create terms that match the hypothesis <em>exactly</em>.
 Consider the following example.
