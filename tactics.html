@@ -77,7 +77,15 @@ you can try something like <code class="docutils literal notranslate"><span clas
 Once you have closed this goal, you&#8217;ll have the hypothesis <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">P</span></code> at your disposal.</p>
 </td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">apply</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">set</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">set</span></code> is used to create intermediate variables or abbreviations.
+It&#8217;s pretty similar to <code class="docutils literal notranslate"><span class="pre">have</span></code>, with one important difference.
+If you type <code class="docutils literal notranslate"><span class="pre">have</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">X</span> <span class="pre">:=</span> <span class="pre">y,</span></code>, Lean remembers that <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">:</span> <span class="pre">X</span></code>, but
+does not remember that <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">y</span></code>.
+Meanwhile, <code class="docutils literal notranslate"><span class="pre">set</span></code> remembers, so if you type <code class="docutils literal notranslate"><span class="pre">set</span> <span class="pre">x</span> <span class="pre">:</span> <span class="pre">X</span> <span class="pre">:=</span> <span class="pre">y</span> <span class="pre">with</span> <span class="pre">hx,</span></code> you also get <code class="docutils literal notranslate"><span class="pre">hx</span> <span class="pre">:</span> <span class="pre">x</span> <span class="pre">=</span> <span class="pre">y</span></code>,
+which you can use to rewrite.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">apply</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">apply</span></code> is used for backward reasoning.</p>
 <p>If the target of the current goal is <code class="docutils literal notranslate"><span class="pre">Q</span></code> and
 <code class="docutils literal notranslate"><span class="pre">f</span></code> is a term of type <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">&#8594;</span> <span class="pre">Q</span></code>, then

@@ -231,6 +231,11 @@ When writing a big proof, you often want a healthy combination of the two that m
     sorry,
   end
 
+We will be learning a lot of tactics this week.
+If ever you lose track of them, check out the :doc:`Glossary of tactics<../tactics>`,
+which lists all of the tactics that are mentioned in these notes,
+as well as some others which are not needed for this class, but may come up if you read other code in Lean.
+
 And / Or
 ===============================
 The operators *and* (``∧``) and *or* (``∨``) are easy to use in Lean.
