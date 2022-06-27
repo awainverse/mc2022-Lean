@@ -204,7 +204,7 @@ Prove (*) assuming m and n are coprime.
 
   
 
-Lemmas for proving (*) assuming 0 < m
+Lemmas for proving (*) assuming m ≠ 0
 ------------------------------------------------------------------------------
 .. code:: lean 
 

@@ -64,8 +64,8 @@ The tactic for getting rid of coercions is ``norm_cast`` which will reduce the a
 
   theorem sqrt2_irrational_nat : 
     ¬ ∃ (m n : ℕ),
-    2 * (m * m) = (n * n) ∧ 
-    0 < m
+    2 * m^2 = n^2 ∧ 
+    m ≠ 0
   :=
   begin
     sorry,
@@ -241,7 +241,8 @@ Now let's try the proof. Remember that ``rw`` can be useful for unfolding defini
   | 0 := 0 -- the definition at 0
   | (n + 1) := sum_first n + (n + 1) -- the definition at (n + 1), which can use the definition at n
 
-  example : ∀ (n : ℕ), 2 * sum_first n = (n + 1) * n :=
+  /-- nat.succ_eq_add_one : ∀ (n : ℕ), n.succ = n + 1 -/
+  theorem sum_first_formula : ∀ (n : ℕ), 2 * sum_first n = (n + 1) * n :=
   begin
     sorry,
   end

@@ -33,7 +33,7 @@ By iterating these two operations, we can teach Lean to verify complex mathemati
   easy_proof : easy_theorem_statement             -- proof of easy_theorem
   :=
   begin
-    refl,                                         -- a tactic
+    rw easy_theorem_statement,                    -- a tactic
   end
 
   theorem 
