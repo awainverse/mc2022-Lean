@@ -75,36 +75,37 @@ However, this is exhausting work, and exactly the kind of thing we&#8217;d rathe
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">norm_num</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">norm_num</span></code> is Lean&#8217;s calculator. If the target has a proof that involves <em>only</em> numbers and arithmetic operations,
-then <code class="docutils literal notranslate"><span class="pre">norm_num</span></code> will close this goal.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">P</span></code> is an assumption then <code class="docutils literal notranslate"><span class="pre">norm_num</span> <span class="pre">at</span> <span class="pre">hp,</span></code> tries to use simplify <code class="docutils literal notranslate"><span class="pre">hp</span></code> using basic arithmetic operations.</p>
+<td><p><code class="docutils literal notranslate"><span class="pre">norm_num</span></code> is Lean&#8217;s calculator. If the target has a proof that involves <em>only</em> natural numbers and arithmetic operations,
+then <code class="docutils literal notranslate"><span class="pre">norm_num</span></code> will close this goal. This is usually the most powerful tactic for dealing with natural numbers.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">P</span></code> is an assumption then <code class="docutils literal notranslate"><span class="pre">norm_num</span> <span class="pre">at</span> <span class="pre">hp,</span></code> tries to simplify <code class="docutils literal notranslate"><span class="pre">hp</span></code> using basic arithmetic operations.</p>
 </td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ring_nf</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">ring_nf,</span></code> is Lean&#8217;s algebraic manipulator.
-If the target has a proof that involves <em>only</em> algebraic operations,
+If the target has a proof that involves <em>only</em> addition and multiplication,
 then <code class="docutils literal notranslate"><span class="pre">ring_nf,</span></code> will close the goal.</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">P</span></code> is an assumption then <code class="docutils literal notranslate"><span class="pre">ring_nf</span> <span class="pre">at</span> <span class="pre">hp,</span></code> tries to use simplify <code class="docutils literal notranslate"><span class="pre">hp</span></code> using basic algebraic operations.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">hp</span> <span class="pre">:</span> <span class="pre">P</span></code> is an assumption then <code class="docutils literal notranslate"><span class="pre">ring_nf</span> <span class="pre">at</span> <span class="pre">hp,</span></code> tries to simplify <code class="docutils literal notranslate"><span class="pre">hp</span></code> using basic algebraic operations.</p>
 </td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">linarith</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">linarith,</span></code> is Lean&#8217;s inequality solver.</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">linarith,</span></code> is Lean&#8217;s inequality solver.
+It can read and use your hypotheses, and can sometimes also solve facts that aren&#8217;t explicitly about inequalities.</p></td>
 </tr>
 </tbody>
 </table>
 <div style="position: relative">
-<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.prime%0A%0A%2F--------------------------------------------------------------------------%0A%0A%60%60norm_num%60%60%0A%0A%20%20Useful%20for%20arithmetic.%0A%0A%60%60ring_nf%60%60%0A%0A%20%20Useful%20for%20basic%20algebra.%0A%0A%60%60linarith%60%60%0A%0A%20%20Useful%20for%20inequalities.%0A%0A%0ADelete%20the%20%60%60sorry%2C%60%60%20below%20and%20replace%20them%20with%20a%20legitimate%20proof.%0A%0A--------------------------------------------------------------------------%2F%0A%0Aexample%20%3A%201%20%3E%200%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20%3A%20101%20%E2%88%A3%202020%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20%3A%20nat.prime%20101%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(m%20a%20b%20%3A%20%E2%84%95)%20%3A%20%20m%5E2%20%2B%20(a%20%2B%20b)%20*%20m%20%2B%20a%20*%20b%20%3D%20(m%20%2B%20a)%20*%20(m%20%2B%20b)%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(a%20b%20c%20%3A%20%E2%84%95)%20%3A%20a%20%3C%20b%20%E2%86%92%20b%20%E2%89%A4%20c%20%E2%86%92%20a%20%3C%20c%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(m%20a%20b%20%3A%20%E2%84%95)%20%3A%20%20m%20%2B%20a%20%E2%88%A3%20m%5E2%20%2B%20(a%20%2B%20b)%20*%20m%20%2B%20a%20*%20b%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A--%20try%20%60%60rw%20nat.prime_def_lt''%20at%20hp%2C%60%60%20to%20get%20started%0Aexample%20(p%20%3A%20%E2%84%95)%20(hp%20%3A%20nat.prime%20p)%20%3A%20%C2%AC%20(p%20%3D%201)%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(a%20b%20%3A%20%E2%84%95)%20%3A%20%C2%AC%20a%20%E2%89%A4%20b%20%E2%86%92%20b%20%3C%20a%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend" target="_blank" tryitfile="../examples/day3/unnamed_66.lean">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.prime%0A%0A%2F--------------------------------------------------------------------------%0A%0A%60%60norm_num%60%60%0A%0A%20%20Useful%20for%20arithmetic%20of%20natural%20numbers.%0A%0A%60%60ring_nf%60%60%0A%0A%20%20Useful%20for%20basic%20algebra%20with%20%2B%20and%20*.%0A%0A%60%60linarith%60%60%0A%0A%20%20Useful%20for%20inequalities.%0A%0A%0ADelete%20the%20%60%60sorry%2C%60%60%20below%20and%20replace%20them%20with%20a%20legitimate%20proof.%0A%0A--------------------------------------------------------------------------%2F%0A%0Aexample%20%3A%201%20%3E%200%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20%3A%20101%20%E2%88%A3%202020%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20%3A%20nat.prime%20101%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(m%20a%20b%20%3A%20%E2%84%95)%20%3A%20%20m%5E2%20%2B%20(a%20%2B%20b)%20*%20m%20%2B%20a%20*%20b%20%3D%20(m%20%2B%20a)%20*%20(m%20%2B%20b)%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(a%20b%20c%20%3A%20%E2%84%95)%20%3A%20a%20%3C%20b%20%E2%86%92%20b%20%E2%89%A4%20c%20%E2%86%92%20a%20%3C%20c%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(m%20a%20b%20%3A%20%E2%84%95)%20%3A%20%20m%20%2B%20a%20%E2%88%A3%20m%5E2%20%2B%20(a%20%2B%20b)%20*%20m%20%2B%20a%20*%20b%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A--%20try%20%60%60rw%20nat.prime_def_lt''%20at%20hp%2C%60%60%20to%20get%20started%0Aexample%20(p%20%3A%20%E2%84%95)%20(hp%20%3A%20nat.prime%20p)%20%3A%20%C2%AC%20(p%20%3D%201)%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Aexample%20(a%20b%20%3A%20%E2%84%95)%20%3A%20%C2%AC%20a%20%E2%89%A4%20b%20%E2%86%92%20b%20%3C%20a%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend" target="_blank" tryitfile="../examples/day3/unnamed_67.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="n">tactic</span> <span class="n">data.nat.prime</span>
 
 <span class="sd">/--------------------------------------------------------------------------</span>
 
 <span class="sd">``norm_num``</span>
 
-<span class="sd">  Useful for arithmetic.</span>
+<span class="sd">  Useful for arithmetic of natural numbers.</span>
 
 <span class="sd">``ring_nf``</span>
 
-<span class="sd">  Useful for basic algebra.</span>
+<span class="sd">  Useful for basic algebra with + and *.</span>
 
 <span class="sd">``linarith``</span>
 
@@ -186,7 +187,7 @@ If you need a term of type <code class="docutils literal notranslate"><span clas
 <p>We will need the following lemma later. Remember to save your proof.
 (Here&#8217;s a <a class="reference internal" href="hint_1_have_exercise.html"><span class="doc">hint</span></a> if you need one.)</p>
 <div style="position: relative">
-<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.prime%0Aopen%20nat%0A%0A%2F--------------------------------------------------------------------------%0A%0A%60%60have%60%60%0A%0A%20%20%60%60have%20hp%20%3A%20P%2C%60%60%20creates%20a%20new%20goal%20with%20target%20%60%60P%60%60%20and%0A%20%20adds%20%60%60hp%20%3A%20P%60%60%20as%20a%20hypothesis%20to%20the%20original%20goal.%0A%0AYou'll%20need%20the%20following%20theorem%20from%20the%20library%3A%0A%0Anat.dvd_sub%20%3A%20n%20%E2%89%A4%20m%20%E2%86%92%20k%20%E2%88%A3%20m%20%E2%86%92%20k%20%E2%88%A3%20n%20%E2%86%92%20k%20%E2%88%A3%20m%20-%20n%0A%0A%20%20%20(Note%20that%20you%20don't%20need%20to%20provide%20n%20m%20k%20as%20inputs%20to%20dvd_sub%0A%20%20%20Lean%20can%20infer%20these%20from%20the%20rest%20of%20the%20expression.%0A%20%20%20More%20on%20this%20tomorrow.)%0A%0ADelete%20the%20%60%60sorry%2C%60%60%20below%20and%20replace%20it%20with%20a%20legitimate%20proof.%0A%0A--------------------------------------------------------------------------%2F%0A%0Atheorem%20dvd_sub_one%20%7Bp%20a%20%3A%20%E2%84%95%7D%20%3A%20(p%20%E2%88%A3%20a)%20%E2%86%92%20(p%20%E2%88%A3%20a%20%2B%201)%20%E2%86%92%20p%20%3D%201%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend" target="_blank" tryitfile="../examples/day3/unnamed_159.lean">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.prime%0Aopen%20nat%0A%0A%2F--------------------------------------------------------------------------%0A%0A%60%60have%60%60%0A%0A%20%20%60%60have%20hp%20%3A%20P%2C%60%60%20creates%20a%20new%20goal%20with%20target%20%60%60P%60%60%20and%0A%20%20adds%20%60%60hp%20%3A%20P%60%60%20as%20a%20hypothesis%20to%20the%20original%20goal.%0A%0AYou'll%20need%20the%20following%20theorem%20from%20the%20library%3A%0A%0Anat.dvd_sub%20%3A%20n%20%E2%89%A4%20m%20%E2%86%92%20k%20%E2%88%A3%20m%20%E2%86%92%20k%20%E2%88%A3%20n%20%E2%86%92%20k%20%E2%88%A3%20m%20-%20n%0A%0A%20%20%20(Note%20that%20you%20don't%20need%20to%20provide%20n%20m%20k%20as%20inputs%20to%20dvd_sub%0A%20%20%20Lean%20can%20infer%20these%20from%20the%20rest%20of%20the%20expression.%0A%20%20%20More%20on%20this%20tomorrow.)%0A%0ADelete%20the%20%60%60sorry%2C%60%60%20below%20and%20replace%20it%20with%20a%20legitimate%20proof.%0A%0A--------------------------------------------------------------------------%2F%0A%0Atheorem%20dvd_sub_one%20%7Bp%20a%20%3A%20%E2%84%95%7D%20%3A%20(p%20%E2%88%A3%20a)%20%E2%86%92%20(p%20%E2%88%A3%20a%20%2B%201)%20%E2%86%92%20(p%20%E2%88%A3%201)%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend" target="_blank" tryitfile="../examples/day3/unnamed_160.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="n">tactic</span> <span class="n">data.nat.prime</span>
 <span class="kn">open</span> <span class="n">nat</span>
 
@@ -209,7 +210,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 
 <span class="sd">--------------------------------------------------------------------------/</span>
 
-<span class="kd">theorem</span> <span class="n">dvd_sub_one</span> <span class="o">{</span><span class="n">p</span> <span class="n">a</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">}</span> <span class="o">:</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="n">p</span> <span class="bp">=</span> <span class="mi">1</span> <span class="o">:=</span>
+<span class="kd">theorem</span> <span class="n">dvd_sub_one</span> <span class="o">{</span><span class="n">p</span> <span class="n">a</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">}</span> <span class="o">:</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">:=</span>
 <span class="kd">begin</span>
   <span class="gr">sorry</span><span class="o">,</span>
 <span class="kd">end</span>
@@ -226,17 +227,17 @@ We&#8217;ll need the following definitions and theorems from the library.</p>
 <dt><strong>Primes</strong></dt><dd><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">m</span> <span class="pre">&#8739;</span> <span class="pre">n</span> <span class="pre">:=</span> <span class="pre">&#8707;</span> <span class="pre">k</span> <span class="pre">:</span> <span class="pre">&#8469;,</span> <span class="pre">m</span> <span class="pre">=</span> <span class="pre">n</span> <span class="pre">*</span> <span class="pre">k</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">m.prime</span> <span class="pre">:=</span>&#160; <span class="pre">2</span> <span class="pre">&#8804;</span> <span class="pre">p</span> <span class="pre">&#8743;</span> <span class="pre">(&#8704;</span> <span class="pre">(m</span> <span class="pre">:</span> <span class="pre">&#8469;),</span> <span class="pre">m</span> <span class="pre">&#8739;</span> <span class="pre">p</span> <span class="pre">&#8594;</span> <span class="pre">m</span> <span class="pre">=</span> <span class="pre">1</span> <span class="pre">&#8744;</span> <span class="pre">m</span> <span class="pre">=</span> <span class="pre">p)</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">prime.not_dvd_one</span> <span class="pre">:</span> <span class="pre">(prime</span> <span class="pre">p)</span> <span class="pre">&#8594;</span> <span class="pre">&#172;</span> <span class="pre">p</span> <span class="pre">&#8739;</span> <span class="pre">1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">nat.prime.not_dvd_one</span> <span class="pre">:</span> <span class="pre">(prime</span> <span class="pre">p)</span> <span class="pre">&#8594;</span> <span class="pre">&#172;</span> <span class="pre">p</span> <span class="pre">&#8739;</span> <span class="pre">1</span></code></p></li>
 </ul>
 </dd>
 <dt><strong>Factorials</strong></dt><dd><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n.fact</span> <span class="pre">:=</span> <span class="pre">n!</span>&#160; <span class="pre">--n</span> <span class="pre">factorial</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">fact_pos</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">(n</span> <span class="pre">:</span> <span class="pre">&#8469;),</span> <span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">n.fact</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">dvd_fact</span> <span class="pre">:</span> <span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">m</span> <span class="pre">&#8594;</span> <span class="pre">m</span> <span class="pre">&#8804;</span> <span class="pre">n</span> <span class="pre">&#8594;</span> <span class="pre">m</span> <span class="pre">&#8739;</span> <span class="pre">n.fact</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">factorial</span> <span class="pre">n</span></code> is defined to be n!</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">factorial_pos</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">(n</span> <span class="pre">:</span> <span class="pre">&#8469;),</span> <span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">factorial</span> <span class="pre">n</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dvd_factorial</span> <span class="pre">:</span> <span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">m</span> <span class="pre">&#8594;</span> <span class="pre">m</span> <span class="pre">&#8804;</span> <span class="pre">n</span> <span class="pre">&#8594;</span> <span class="pre">m</span> <span class="pre">&#8739;</span> <span class="pre">factorial</span> <span class="pre">n</span></code></p></li>
 </ul>
 </dd>
 <dt><strong>Smallest factor</strong></dt><dd><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">n.min_fac</span> <span class="pre">:=</span></code> smallest non-trivial factor of <code class="docutils literal notranslate"><span class="pre">n</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">n.min_fac</span></code> is defined to be the smallest non-trivial factor of <code class="docutils literal notranslate"><span class="pre">n</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">min_fac_prime</span> <span class="pre">:</span> <span class="pre">n</span> <span class="pre">&#8800;</span> <span class="pre">1</span> <span class="pre">&#8594;</span> <span class="pre">n.min_fac.prime</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">min_fac_pos</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">(n</span> <span class="pre">:</span> <span class="pre">&#8469;),</span> <span class="pre">0</span> <span class="pre">&lt;</span> <span class="pre">n.min_fac</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">min_fac_dvd</span> <span class="pre">:</span> <span class="pre">&#8704;</span> <span class="pre">(n</span> <span class="pre">:</span> <span class="pre">&#8469;),</span> <span class="pre">n.min_fac</span> <span class="pre">&#8739;</span> <span class="pre">n</span></code></p></li>
@@ -247,31 +248,30 @@ We&#8217;ll need the following definitions and theorems from the library.</p>
 The exercise below is very open-ended.
 You should take your time, check the goal window at every step, and sketch out the proof on paper whenever you get lost.</p>
 <div style="position: relative">
-<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.prime%0Anoncomputable%20theory%0Aopen_locale%20classical%0A%0Aopen%20nat%0A%0Atheorem%20dvd_sub_one%20%7Bp%20a%20%3A%20%E2%84%95%7D%20%3A%20(p%20%E2%88%A3%20a)%20%E2%86%92%20(p%20%E2%88%A3%20a%20%2B%201)%20%E2%86%92%20p%20%3D%201%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A%2F-%0Advd_sub_one%20%3A%20(p%20%E2%88%A3%20a)%20%E2%86%92%20(p%20%E2%88%A3%20a%20%2B%201)%20%E2%86%92%20p%20%3D%201%0A%0Am%20%E2%88%A3%20n%20%3A%3D%20%E2%88%83%20k%20%3A%20%E2%84%95%2C%20m%20%3D%20n%20*%20k%0Am.prime%20%3A%3D%20%202%20%E2%89%A4%20p%20%E2%88%A7%20(%E2%88%80%20(m%20%3A%20%E2%84%95)%2C%20m%20%E2%88%A3%20p%20%E2%86%92%20m%20%3D%201%20%E2%88%A8%20m%20%3D%20p)%0Anat.not_prime_one%20%3A%20%C2%AC%20nat.prime%201%0Anat.prime.pos%20%3A%20%E2%88%80%20%7Bp%20%3A%20%E2%84%95%7D%2C%20nat.prime%20p%20%E2%86%92%200%20%3C%20n.min_fac%0A%0An.fact%20%3A%3D%20n!%20(n%20factorial)%0Afact_pos%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%200%20%3C%20n.fact%0Advd_fact%20%3A%200%20%3C%20m%20%E2%86%92%20m%20%E2%89%A4%20n%20%E2%86%92%20m%20%E2%88%A3%20n.fact%0A%0An.min_fac%20%3A%3D%20smallest%20non-trivial%20factor%20of%20n%0Amin_fac_prime%20%3A%20n%20%E2%89%A0%201%20%E2%86%92%20n.min_fac.prime%0Amin_fac_pos%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%200%20%3C%20n.min_fac%0Amin_fac_dvd%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%20n.min_fac%20%E2%88%A3%20n%0A-%2F%0A%0Atheorem%20exists_infinite_primes%20(n%20%3A%20%E2%84%95)%20%3A%20%E2%88%83%20p%2C%20nat.prime%20p%20%E2%88%A7%20p%20%E2%89%A5%20n%20%3A%3D%0Abegin%0A%20%20set%20p%3A%3D%20(n.fact%20%2B%201).min_fac%2C%0A%20%20sorry%2C%0Aend" target="_blank" tryitfile="../examples/day3/unnamed_217.lean">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.prime%0Anoncomputable%20theory%0Aopen_locale%20classical%0A%0Aopen%20nat%0A%0Atheorem%20dvd_sub_one%20%7Bp%20a%20%3A%20%E2%84%95%7D%20%3A%20(p%20%E2%88%A3%20a)%20%E2%86%92%20(p%20%E2%88%A3%20a%20%2B%201)%20%E2%86%92%20(p%20%E2%88%A3%201)%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A%2F-%0Advd_sub_one%20%3A%20(p%20%E2%88%A3%20a)%20%E2%86%92%20(p%20%E2%88%A3%20a%20%2B%201)%20%E2%86%92%20(p%20%E2%88%A3%201)%0A%0Am%20%E2%88%A3%20n%20%3A%3D%20%E2%88%83%20k%20%3A%20%E2%84%95%2C%20m%20%3D%20n%20*%20k%0Am.prime%20%3A%3D%20%202%20%E2%89%A4%20p%20%E2%88%A7%20(%E2%88%80%20(m%20%3A%20%E2%84%95)%2C%20m%20%E2%88%A3%20p%20%E2%86%92%20m%20%3D%201%20%E2%88%A8%20m%20%3D%20p)%0Anat.prime.not_dvd_one%20%3A%20(prime%20p)%20%E2%86%92%20%C2%AC%20p%20%E2%88%A3%201%0A%0Afactorial%20n%20is%20defined%20to%20be%20n!%0Afactorial_pos%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%200%20%3C%20factorial%20n%0Advd_factorial%20%3A%200%20%3C%20m%20%E2%86%92%20m%20%E2%89%A4%20n%20%E2%86%92%20m%20%E2%88%A3%20factorial%20n%0A%0An.min_fac%20is%20defined%20to%20be%20the%20smallest%20non-trivial%20factor%20of%20n%0Amin_fac_prime%20%3A%20n%20%E2%89%A0%201%20%E2%86%92%20n.min_fac.prime%0Amin_fac_pos%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%200%20%3C%20n.min_fac%0Amin_fac_dvd%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%20n.min_fac%20%E2%88%A3%20n%0A-%2F%0A%0Atheorem%20exists_infinite_primes%20(n%20%3A%20%E2%84%95)%20%3A%20%E2%88%83%20p%2C%20nat.prime%20p%20%E2%88%A7%20p%20%E2%89%A5%20n%20%3A%3D%0Abegin%0A%20%20set%20p%20%3A%3D%20(n.factorial%20%2B%201).min_fac%2C%20--%20Use%20%60set%60%20instead%20of%20%60have%60%20when%20you're%20just%20making%20an%20abbreviation%20for%20a%20number.%0A%20%20sorry%2C%0Aend" target="_blank" tryitfile="../examples/day3/unnamed_218.lean">
 try it!</a></div><div class="highlight-lean notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="n">tactic</span> <span class="n">data.nat.prime</span>
 <span class="kd">noncomputable theory</span>
 <span class="n">open_locale</span> <span class="n">classical</span>
 
 <span class="kn">open</span> <span class="n">nat</span>
 
-<span class="kd">theorem</span> <span class="n">dvd_sub_one</span> <span class="o">{</span><span class="n">p</span> <span class="n">a</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">}</span> <span class="o">:</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="n">p</span> <span class="bp">=</span> <span class="mi">1</span> <span class="o">:=</span>
+<span class="kd">theorem</span> <span class="n">dvd_sub_one</span> <span class="o">{</span><span class="n">p</span> <span class="n">a</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">}</span> <span class="o">:</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="n">a</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="bp">&#8594;</span> <span class="o">(</span><span class="n">p</span> <span class="bp">&#8739;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">:=</span>
 <span class="kd">begin</span>
   <span class="gr">sorry</span><span class="o">,</span>
 <span class="kd">end</span>
 
 <span class="c">/-</span><span class="cm"></span>
-<span class="cm">dvd_sub_one : (p &#8739; a) &#8594; (p &#8739; a + 1) &#8594; p = 1</span>
+<span class="cm">dvd_sub_one : (p &#8739; a) &#8594; (p &#8739; a + 1) &#8594; (p &#8739; 1)</span>
 
 <span class="cm">m &#8739; n := &#8707; k : &#8469;, m = n * k</span>
 <span class="cm">m.prime :=  2 &#8804; p &#8743; (&#8704; (m : &#8469;), m &#8739; p &#8594; m = 1 &#8744; m = p)</span>
-<span class="cm">nat.not_prime_one : &#172; nat.prime 1</span>
-<span class="cm">nat.prime.pos : &#8704; {p : &#8469;}, nat.prime p &#8594; 0 &lt; n.min_fac</span>
+<span class="cm">nat.prime.not_dvd_one : (prime p) &#8594; &#172; p &#8739; 1</span>
 
-<span class="cm">n.fact := n! (n factorial)</span>
-<span class="cm">fact_pos : &#8704; (n : &#8469;), 0 &lt; n.fact</span>
-<span class="cm">dvd_fact : 0 &lt; m &#8594; m &#8804; n &#8594; m &#8739; n.fact</span>
+<span class="cm">factorial n is defined to be n!</span>
+<span class="cm">factorial_pos : &#8704; (n : &#8469;), 0 &lt; factorial n</span>
+<span class="cm">dvd_factorial : 0 &lt; m &#8594; m &#8804; n &#8594; m &#8739; factorial n</span>
 
-<span class="cm">n.min_fac := smallest non-trivial factor of n</span>
+<span class="cm">n.min_fac is defined to be the smallest non-trivial factor of n</span>
 <span class="cm">min_fac_prime : n &#8800; 1 &#8594; n.min_fac.prime</span>
 <span class="cm">min_fac_pos : &#8704; (n : &#8469;), 0 &lt; n.min_fac</span>
 <span class="cm">min_fac_dvd : &#8704; (n : &#8469;), n.min_fac &#8739; n</span>
@@ -279,7 +279,7 @@ try it!</a></div><div class="highlight-lean notranslate"><div class="highlight">
 
 <span class="kd">theorem</span> <span class="n">exists_infinite_primes</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">)</span> <span class="o">:</span> <span class="bp">&#8707;</span> <span class="n">p</span><span class="o">,</span> <span class="n">nat.prime</span> <span class="n">p</span> <span class="bp">&#8743;</span> <span class="n">p</span> <span class="bp">&#8805;</span> <span class="n">n</span> <span class="o">:=</span>
 <span class="kd">begin</span>
-  <span class="n">set</span> <span class="n">p</span><span class="o">:=</span> <span class="o">(</span><span class="n">n.fact</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span><span class="bp">.</span><span class="n">min_fac</span><span class="o">,</span>
+  <span class="n">set</span> <span class="n">p</span> <span class="o">:=</span> <span class="o">(</span><span class="n">n.factorial</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span><span class="bp">.</span><span class="n">min_fac</span><span class="o">,</span> <span class="c1">-- Use `set` instead of `have` when you&#39;re just making an abbreviation for a number.</span>
   <span class="gr">sorry</span><span class="o">,</span>
 <span class="kd">end</span>
 </pre></div>
@@ -342,7 +342,7 @@ So theorem proving is Lean often involves the following steps:</p>
 <hr />
 <ul>
     
-    <li class="toctree-l1"><a href="/latex/lean_at_mc2022.pdf">PDF version</a></li>
+    <li class="toctree-l1"><a href="https://awainverse.github.io/mc2022-Lean/latex/lean_at_mc2022.pdf">PDF version</a></li>
     
     <li class="toctree-l1"><a href="https://leanprover-community.github.io/lean-web-editor/">Lean Live Editor</a></li>
     
