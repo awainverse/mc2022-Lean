@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.17)  26 JUN 2022 17:05
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.3.17)  26 JUN 2022 21:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1067,27 +1067,82 @@ Chapter 7.
 
 ]
 Chapter 8.
+
+Underfull \hbox (badness 10000) in paragraph at lines 2362--2364
+[]|\TU/FreeMono(0)/m/n/10 re-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2383--2385
+[]|\TU/FreeMono(0)/m/n/10 rin-
+ []
+
 [35]
-Underfull \hbox (badness 10000) in paragraph at lines 2494--2496
+Overfull \hbox (1.4645pt too wide) in paragraph at lines 2507--2509
+[]|\TU/FreeMono(0)/m/n/10 rcases| 
+ []
+
+
+Overfull \hbox (1.4645pt too wide) in paragraph at lines 2531--2533
+[]|\TU/FreeMono(0)/m/n/10 false.
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2541--2543
+[]|\TU/FreeMono(0)/m/n/10 ex-
+ []
+
+
+Overfull \hbox (13.4645pt too wide) in paragraph at lines 2562--2564
+[]|\TU/FreeMono(0)/m/n/10 by_cases| 
+ []
+
+
+Overfull \hbox (61.4645pt too wide) in paragraph at lines 2573--2575
+[]|\TU/FreeMono(0)/m/n/10 by_contradiction| 
+ []
+
+
+Overfull \hbox (13.4645pt too wide) in paragraph at lines 2586--2588
+[]|\TU/FreeMono(0)/m/n/10 push_neg| 
+ []
+
+
+Overfull \hbox (31.4645pt too wide) in paragraph at lines 2600--2602
+[]|\TU/FreeMono(0)/m/n/10 contrapose!
+ []
+
+[36]
+Underfull \hbox (badness 10000) in paragraph at lines 2639--2641
 []|\TU/FreeMono(0)/m/n/10 rin-
  []
 
 
-Overfull \hbox (13.4645pt too wide) in paragraph at lines 2559--2561
+Overfull \hbox (13.4645pt too wide) in paragraph at lines 2694--2696
 []|\TU/FreeMono(0)/m/n/10 norm_num| 
  []
 
 
-Overfull \hbox (7.4645pt too wide) in paragraph at lines 2570--2572
+Overfull \hbox (7.4645pt too wide) in paragraph at lines 2705--2707
 []|\TU/FreeMono(0)/m/n/10 ring_nf| 
  []
 
 
-Overfull \hbox (1.4645pt too wide) in paragraph at lines 2582--2584
+Overfull \hbox (1.4645pt too wide) in paragraph at lines 2717--2719
 []|\TU/FreeMono(0)/m/n/10 linar-
  []
 
-[36] (./lean_at_mc2022.ind)
+[37]
+Underfull \hbox (badness 10000) in paragraph at lines 2795--2797
+[]|\TU/FreeMono(0)/m/n/10 in-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2795--2797
+\TU/FreeMono(0)/m/n/10 duc-
+ []
+
+(./lean_at_mc2022.ind)
 The property list \polyglossia@langsetup contains the pairs (without outer
 braces):
 >  {latex/script}  =>  {latin}
@@ -1122,7 +1177,7 @@ braces):
 >  {english/babelname}  =>  {american}
 >  {english/localnumeral}  =>  {polyglossia@C@localnumeral}
 >  {english/Localnumeral}  =>  {polyglossia@C@localnumeral}.
- [37] (./lean_at_mc2022.aux
+ [38] (./lean_at_mc2022.aux
 LaTeX Info: Redefining \rmfamily on input line 19.
 LaTeX Info: Redefining \sffamily on input line 19.
 LaTeX Info: Redefining \ttfamily on input line 19.
@@ -1139,4 +1194,4 @@ Here is how much of TeX's memory you used:
  1349 hyphenation exceptions out of 8191
  83i,16n,89p,1776b,515s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on lean_at_mc2022.pdf (41 pages).
+Output written on lean_at_mc2022.pdf (42 pages).

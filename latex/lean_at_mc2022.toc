@@ -45,9 +45,9 @@
 \contentsline {chapter}{\numberline {7}Pretty Symbols in Lean}{33}{chapter.7}%
 \contentsline {chapter}{\numberline {8}Glossary of Tactics and Lemmas}{35}{chapter.8}%
 \contentsline {section}{\numberline {8.1}Implications in Lean}{35}{section.8.1}%
-\contentsline {section}{\numberline {8.2}And / Or}{35}{section.8.2}%
-\contentsline {section}{\numberline {8.3}Negations and Proof by Contradiction}{35}{section.8.3}%
-\contentsline {section}{\numberline {8.4}Quantifiers}{36}{section.8.4}%
-\contentsline {section}{\numberline {8.5}Proving “trivial” statements}{36}{section.8.5}%
+\contentsline {section}{\numberline {8.2}And / Or}{36}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Negations and Proof by Contradiction}{36}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Quantifiers}{37}{section.8.4}%
+\contentsline {section}{\numberline {8.5}Proving “trivial” statements}{37}{section.8.5}%
 \contentsline {section}{\numberline {8.6}Equality}{37}{section.8.6}%
-\contentsline {section}{\numberline {8.7}Induction}{37}{section.8.7}%
+\contentsline {section}{\numberline {8.7}Induction}{38}{section.8.7}%

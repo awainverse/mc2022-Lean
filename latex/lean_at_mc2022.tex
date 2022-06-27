@@ -2354,71 +2354,225 @@ Here’s a summary of all the tactics and some of the lemmas we will introduce i
 \section{Implications in Lean}
 \label{\detokenize{tactics:implications-in-lean}}
 
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{10}{100}|\X{90}{100}|}
+\hline
+
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{refine}}
+&
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{P}} is the target of the current goal
+and \sphinxcode{\sphinxupquote{hp}} is a term of type \sphinxcode{\sphinxupquote{P}},
+then \sphinxcode{\sphinxupquote{refine hp,}} will close the goal.
+
+\sphinxAtStartPar
+Mathematically, this saying “this is what we were required to prove”.
+
+\sphinxAtStartPar
+If you can’t fully close a goal, but want to work somewhat from the end, you can use \sphinxcode{\sphinxupquote{\_}} to fill in the missing pieces.
+For instance, if the target of the current goal is \sphinxcode{\sphinxupquote{Q}} and
+\sphinxcode{\sphinxupquote{f}} is a term of type \sphinxcode{\sphinxupquote{P → Q}}, then
+\sphinxcode{\sphinxupquote{refine f \_,}} changes the target to \sphinxcode{\sphinxupquote{P}}.
+
+\sphinxAtStartPar
+If you can fully close a goal, you can also type \sphinxcode{\sphinxupquote{exact hp,}}, which does pretty much the same thing.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{rintro}}
+&
+\sphinxAtStartPar
+If the target of the current goal is a function \sphinxcode{\sphinxupquote{P → Q}},
+then \sphinxcode{\sphinxupquote{rintro hp,}} will produce a hypothesis
+\sphinxcode{\sphinxupquote{hp : P}} and change the target to  \sphinxcode{\sphinxupquote{Q}}.
+
+\sphinxAtStartPar
+Mathematically, this is saying that in order to define a function from \sphinxcode{\sphinxupquote{P}} to \sphinxcode{\sphinxupquote{Q}},
+we first need to choose (introduce) an arbitrary element of \sphinxcode{\sphinxupquote{P}}.
+
+\sphinxAtStartPar
+If you want to use this repeatedly, you can type \sphinxcode{\sphinxupquote{rintro h1 h2}} instead of \sphinxcode{\sphinxupquote{rintro h1,}} and then \sphinxcode{\sphinxupquote{rintro h2,}}.
+If you want to use this to introduce a variable of a more complicated type that you would then apply \sphinxcode{\sphinxupquote{cases}} to,
+you can try something like \sphinxcode{\sphinxupquote{rintro ⟨x1, x2, x3⟩,}} where \sphinxcode{\sphinxupquote{⟨⟩}} are typed with \sphinxcode{\sphinxupquote{\textbackslash{}langle` and ``\textbackslash{}rangle}}.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{have}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{have}} is used to create intermediate variables.
+
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{f}} is a term of type \sphinxcode{\sphinxupquote{P → Q}} and
+\sphinxcode{\sphinxupquote{hp}} is a term of type \sphinxcode{\sphinxupquote{P}}, then
+\sphinxcode{\sphinxupquote{have hq := f(hp),}} creates the hypothesis \sphinxcode{\sphinxupquote{hq : Q}} .
+
+\sphinxAtStartPar
+You can also create subgoals with \sphinxcode{\sphinxupquote{have hp : P,}} which will create a separate goal to prove \sphinxcode{\sphinxupquote{P}}.
+Once you have closed this goal, you’ll have the hypothesis \sphinxcode{\sphinxupquote{hp : P}} at your disposal.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{apply}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{apply}} is used for backward reasoning.
+
+\sphinxAtStartPar
+If the target of the current goal is \sphinxcode{\sphinxupquote{Q}} and
+\sphinxcode{\sphinxupquote{f}} is a term of type \sphinxcode{\sphinxupquote{P → Q}}, then
+\sphinxcode{\sphinxupquote{apply f,}} changes target to \sphinxcode{\sphinxupquote{P}}.
+
+\sphinxAtStartPar
+Mathematically, this is equivalent to saying “because \sphinxcode{\sphinxupquote{P}} implies \sphinxcode{\sphinxupquote{Q}}, to prove \sphinxcode{\sphinxupquote{Q}} it suffices to prove \sphinxcode{\sphinxupquote{P}}”.
+This is similar to using \sphinxcode{\sphinxupquote{refine \_,}}.
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
 \section{And / Or}
 \label{\detokenize{tactics:and-or}}
 
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{10}{100}|\X{90}{100}|}
+\hline
+
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{cases}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{cases}} is a general tactic that breaks a complicated term into simpler ones.
+
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{hpq}} is a term of type \sphinxcode{\sphinxupquote{P ∧ Q}}, then
+\sphinxcode{\sphinxupquote{cases hpq with hp hq,}} breaks it into \sphinxcode{\sphinxupquote{hp : P}} and \sphinxcode{\sphinxupquote{hp : Q}}.
+
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{hpq}} is a term of type \sphinxcode{\sphinxupquote{P × Q}}, then
+\sphinxcode{\sphinxupquote{cases hpq with hp hq,}} breaks it into \sphinxcode{\sphinxupquote{hp : P}} and \sphinxcode{\sphinxupquote{hp : Q}}.
+
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{fg}} is a term of type \sphinxcode{\sphinxupquote{P ↔ Q}}, then
+\sphinxcode{\sphinxupquote{cases fg with f g,}} breaks it into \sphinxcode{\sphinxupquote{f : P → Q}} and \sphinxcode{\sphinxupquote{g : Q → P}}.
+
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{hpq}} is a term of type \sphinxcode{\sphinxupquote{P ∨ Q}}, then
+\sphinxcode{\sphinxupquote{cases hpq with hp hq,}} creates two goals and adds the hypotheses \sphinxcode{\sphinxupquote{hp : P}} and \sphinxcode{\sphinxupquote{hq : Q}} to one each.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{split}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{split}} is a general tactic that breaks a complicated goal into simpler ones.
+
+\sphinxAtStartPar
+If the target of the current goal is \sphinxcode{\sphinxupquote{P ∧ Q}}, then
+\sphinxcode{\sphinxupquote{split,}} breaks up the goal into two goals with targets \sphinxcode{\sphinxupquote{P}} and \sphinxcode{\sphinxupquote{Q}}.
+
+\sphinxAtStartPar
+If the target of the current goal is \sphinxcode{\sphinxupquote{P × Q}}, then
+\sphinxcode{\sphinxupquote{split,}} breaks up the goal into two goals with targets \sphinxcode{\sphinxupquote{P}} and \sphinxcode{\sphinxupquote{Q}}.
+
+\sphinxAtStartPar
+If the target of the current goal is \sphinxcode{\sphinxupquote{P ↔ Q}}, then
+\sphinxcode{\sphinxupquote{split,}} breaks up the goal into two goals with targets \sphinxcode{\sphinxupquote{P → Q}} and \sphinxcode{\sphinxupquote{Q → P}}.
+
+\sphinxAtStartPar
+You can also accomplish this with \sphinxcode{\sphinxupquote{refine ⟨\_, \_⟩}}.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{left}}
+&
+\sphinxAtStartPar
+If the target of the current goal is \sphinxcode{\sphinxupquote{P ∨ Q}}, then
+\sphinxcode{\sphinxupquote{left,}} changes the target to \sphinxcode{\sphinxupquote{P}}.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{right}}
+&
+\sphinxAtStartPar
+If the target of the current goal is \sphinxcode{\sphinxupquote{P ∨ Q}}, then
+\sphinxcode{\sphinxupquote{right,}} changes the target to \sphinxcode{\sphinxupquote{Q}}.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{rcases}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{rcases}} is a more general form of \sphinxcode{\sphinxupquote{cases}}. Needs the symbols \sphinxcode{\sphinxupquote{⟨⟩}}, which are typed with \sphinxcode{\sphinxupquote{\textbackslash{}langle}} and \sphinxcode{\sphinxupquote{\textbackslash{}rangle}}.
+
+\sphinxAtStartPar
+For an example, say you have \sphinxcode{\sphinxupquote{h : ∃ (m n : ℕ), 2 * m \textasciicircum{} 2 = n \textasciicircum{} 2 ∧ 0 < m}}.
+Then you can type \sphinxcode{\sphinxupquote{rcases h with ⟨m, n, hmn, hme0⟩,}} to break \sphinxcode{\sphinxupquote{h}} into its 4 component parts.
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
+
 \section{Negations and Proof by Contradiction}
-\label{\detokenize{tactics:negations-and-proof-by-contradiction}}\begin{itemize}
-\item {} \begin{itemize}
-\item {} 
+\label{\detokenize{tactics:negations-and-proof-by-contradiction}}
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{10}{100}|\X{90}{100}|}
+\hline
+
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{false.elim}}
-\sphinxhyphen{} Not a tactic, but a lemma.
+&
+\sphinxAtStartPar
+Not a tactic, but a lemma.
 
 \sphinxAtStartPar
 If \sphinxcode{\sphinxupquote{P : Prop}}, then \sphinxcode{\sphinxupquote{false.elim : false → P}} lets you prove \sphinxcode{\sphinxupquote{P}} from a contradiction.
-
-\end{itemize}
-\begin{itemize}
-\item {} \begin{itemize}
-\item {} 
+\\
+\hline
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{exfalso}}
-
-\item {} 
+&
 \sphinxAtStartPar
 Changes the target of the current goal to \sphinxcode{\sphinxupquote{false}}.
 
 \sphinxAtStartPar
 The name derives from \sphinxhref{https://en.wikipedia.org/wiki/Principle\_of\_explosion}{“ex falso, quodlibet”} which translates to “from contradiction, anything”.
 You should use this tactic when there are contradictory hypotheses present.
-
-\end{itemize}
-
-\end{itemize}
-
-\item {} \begin{itemize}
-\item {} 
+\\
+\hline
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{em}}
-\sphinxhyphen{} Not a tactic, but a lemma.
+&
+\sphinxAtStartPar
+Not a tactic, but a lemma.
 
 \sphinxAtStartPar
 If \sphinxcode{\sphinxupquote{P : Prop}}, then \sphinxcode{\sphinxupquote{em P : P ∨ ¬ P}} lets you use the law of the excluded middle on \sphinxcode{\sphinxupquote{P}}.
-
-\end{itemize}
-\begin{itemize}
-\item {} \begin{itemize}
-\item {} 
+\\
+\hline
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{by\_cases}}
-
-\item {} 
+&
 \sphinxAtStartPar
 If \sphinxcode{\sphinxupquote{P : Prop}}, then \sphinxcode{\sphinxupquote{by\_cases hp : P,}} creates two goals,
 the first with a hypothesis \sphinxcode{\sphinxupquote{hp: P}} and second with a hypothesis \sphinxcode{\sphinxupquote{hp: ¬ P}}.
 
 \sphinxAtStartPar
 This lets you use the law of the excluded middle, combining \sphinxcode{\sphinxupquote{em}} with \sphinxcode{\sphinxupquote{cases}}.
-
-\end{itemize}
-
-\item {} \begin{itemize}
-\item {} 
+\\
+\hline
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{by\_contradiction}}
-
-\item {} 
+&
 \sphinxAtStartPar
 If the target of the current goal is  \sphinxcode{\sphinxupquote{Q}},
 then \sphinxcode{\sphinxupquote{by\_contradiction,}} changes the target to  \sphinxcode{\sphinxupquote{false}} and
@@ -2427,15 +2581,11 @@ adds \sphinxcode{\sphinxupquote{hnq : ¬ Q}} as a hypothesis.
 \sphinxAtStartPar
 Mathematically, this is proof by contradiction.
 This is essentially a combination of \sphinxcode{\sphinxupquote{rintro}} with \sphinxcode{\sphinxupquote{false.elim}}.
-
-\end{itemize}
-
-\item {} \begin{itemize}
-\item {} 
+\\
+\hline
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{push\_neg}}
-
-\item {} 
+&
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{push\_neg,}} simplifies negations in the target.
 
@@ -2445,15 +2595,11 @@ For example, if the target of the current goal is \sphinxcode{\sphinxupquote{¬ 
 
 \sphinxAtStartPar
 You can also push negations across a hypothesis \sphinxcode{\sphinxupquote{hp : P}} using \sphinxcode{\sphinxupquote{push\_neg at hp,}}.
-
-\end{itemize}
-
-\item {} \begin{itemize}
-\item {} 
+\\
+\hline
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{contrapose!}}
-
-\item {} 
+&
 \sphinxAtStartPar
 If the target of the current goal is  \sphinxcode{\sphinxupquote{P → Q}},
 then \sphinxcode{\sphinxupquote{contrapose!,}} changes the target to  \sphinxcode{\sphinxupquote{¬ Q → ¬ P}}.
@@ -2466,12 +2612,11 @@ and changes the hypothesis to \sphinxcode{\sphinxupquote{hp : ¬ Q}}.
 
 \sphinxAtStartPar
 Mathematically, this is replacing the target by its contrapositive.
-
-\end{itemize}
-
-\end{itemize}
-
-\end{itemize}
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
 
 
 \section{Quantifiers}
@@ -2500,16 +2645,6 @@ If the target of the current goal is \sphinxcode{\sphinxupquote{∀ x : X, P x}}
 changes the target to \sphinxcode{\sphinxupquote{P x}}.
 \\
 \hline
-\end{tabular}
-\par
-\sphinxattableend\end{savenotes}
-
-
-\begin{savenotes}\sphinxattablestart
-\centering
-\begin{tabular}[t]{|\X{10}{100}|\X{90}{100}|}
-\hline
-
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{cases}}
 &
@@ -2651,6 +2786,40 @@ For this purpose, you could also use the tactic \sphinxcode{\sphinxupquote{unfol
 
 \section{Induction}
 \label{\detokenize{tactics:induction}}
+
+\begin{savenotes}\sphinxattablestart
+\centering
+\begin{tabular}[t]{|\X{10}{100}|\X{90}{100}|}
+\hline
+
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{induction}}
+&
+\sphinxAtStartPar
+If \sphinxcode{\sphinxupquote{n : ℕ}} is a natural number variable, \sphinxcode{\sphinxupquote{P : ℕ → Prop}} is a property of natural numbers,
+and you want to prove \sphinxcode{\sphinxupquote{P n}} using induction, then \sphinxcode{\sphinxupquote{induction n using k ih,}} will create two goals.
+
+\sphinxAtStartPar
+One has target \sphinxcode{\sphinxupquote{P 0}}, this is the base case.
+
+\sphinxAtStartPar
+The other has target \sphinxcode{\sphinxupquote{P (k.succ)}}, where \sphinxcode{\sphinxupquote{k.succ = k + 1}}.
+(You can rewrite away the \sphinxcode{\sphinxupquote{.succ}} with \sphinxcode{\sphinxupquote{nat.succ\_eq\_add\_one}}.)
+You’re also provided an induction hypothesis, \sphinxcode{\sphinxupquote{ih : P k}}.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{refl}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{refl,}} proves things that are literally true by definition.
+Often this will handle your base case.
+\\
+\hline
+\end{tabular}
+\par
+\sphinxattableend\end{savenotes}
+
 
 
 \renewcommand{\indexname}{Index}
