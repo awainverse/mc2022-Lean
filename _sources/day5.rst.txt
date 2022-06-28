@@ -258,11 +258,8 @@ Now let's try the proof. Remember that ``rw`` can be useful for unfolding defini
     One is the base case, the other is the induction step.
 
 
-  ``rintro``
-
-    If the target of the current goal is a function ``P → Q``, then 
-    ``rintro hp,`` will produce a hypothesis 
-    ``hp : P`` and change the target to  ``Q``.
+  ``refl`` proves things that are literally true by definition.
+    Often this will handle your base case.
 
   nat.succ_eq_add_one : ∀ (n : ℕ), n.succ = n + 1
 
