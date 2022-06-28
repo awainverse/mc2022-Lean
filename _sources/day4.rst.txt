@@ -99,7 +99,8 @@ Have fun!
 
 Lemmas for proving (*) assuming m and n are coprime.
 ------------------------------------------------------------------------------
-.. code:: lean 
+.. code:: lean
+  :name: coprime_lemmas
 
   import tactic
   import data.nat.basic
@@ -147,6 +148,7 @@ Prove (*) assuming m and n are coprime.
 ------------------------------------------------------------------------------
 
 .. code:: lean 
+  :name: assume_coprime
 
   import tactic
   import data.nat.basic
@@ -207,6 +209,7 @@ Prove (*) assuming m and n are coprime.
 Lemmas for proving (*) assuming m ≠ 0
 ------------------------------------------------------------------------------
 .. code:: lean 
+  :name: nonzero_lemmas
 
   import tactic
   import data.nat.basic
@@ -258,7 +261,8 @@ Lemmas for proving (*) assuming m ≠ 0
 
 Prove (*) assuming m ≠ 0
 ------------------------------------------------------------------------------
-.. code:: lean 
+.. code:: lean
+  :name: assume_nonzero 
 
   import tactic
   import data.nat.basic

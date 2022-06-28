@@ -108,6 +108,7 @@ You can prove exactly one of the following using just ``refine``, ``rintro``, an
 Can you find which one?
 
 .. code:: lean
+  :name: lem_examples_1
 
   import tactic
 
@@ -146,6 +147,7 @@ you have to type the lines ``noncomputable theory`` and ``open_locale classical`
 near the top of the file, to show that you're ok with using all of classical logic!
 
 .. code:: lean
+  :name: lem_examples_2
 
   import tactic
 
@@ -241,6 +243,7 @@ Prove that this is a contradiction.
 Here are some :doc:`hints <../hint_1_barber_paradox>` if you get stuck.
 
 .. code-block:: lean
+  :name: barber_paradox
 
   import tactic
   -- the next two lines let us use the law of the excluded middle without trouble
@@ -322,6 +325,7 @@ Show that if a relation is symmetric, transitive, and connected,
 then it is also reflexive.
 
 .. code:: lean
+  :name: relationship_paradox
 
   import tactic 
   
@@ -364,6 +368,7 @@ So far we have not seen how to deal with propositions of the form ``P = Q``, for
 To get the left arrow, type ``\l``. If you want to rewrite a bunch of things in a row, you can type ``rw [h1, h2, h3],``.
 
 .. code:: lean 
+  :name: rw_examples
 
   import tactic data.nat.basic
   open nat 
@@ -423,6 +428,7 @@ In type theory, for every function ``f`` we can define a corresponding propositi
 ``surjective (f) := ∀ y, ∃ x, f x = y`` and a function being surjective is equivalent to saying that the proposition ``surjective(f)`` is inhabited.
 
 .. code:: lean 
+  :name: surjective
 
   import tactic 
   open function

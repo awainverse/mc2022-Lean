@@ -65,6 +65,7 @@ Here are two of Lean's many tactics that automate basic calculations for us.
       It can read and use your hypotheses, and can sometimes also solve facts that aren't explicitly about inequalities.
   
 .. code:: lean 
+  :name: trivial_tactic_examples
 
   import tactic data.nat.prime 
 
@@ -157,7 +158,8 @@ If you need a term of type ``n > 0`` and you only have ``hn : 0 < n``, then you 
 We will need the following lemma later. Remember to save your proof. 
 (Here's a :doc:`hint <../hint_1_have_exercise>` if you need one.)
 
-.. code:: lean 
+.. code:: lean
+  :name: have_exercise 
 
   import tactic data.nat.prime
   open nat
@@ -216,6 +218,7 @@ The exercise below is very open-ended.
 You should take your time, check the goal window at every step, and sketch out the proof on paper whenever you get lost.
 
 .. code:: lean 
+  :name: inf_primes
 
   import tactic data.nat.prime
   noncomputable theory
