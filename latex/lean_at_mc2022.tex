@@ -80,7 +80,7 @@
 
 
 \title{Lean at MC2022}
-\date{Jun 26, 2022}
+\date{Jun 27, 2022}
 \release{0.1}
 \author{Aaron Anderson, Apurva Nakade \and Jalex Stark}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -117,6 +117,7 @@ Terms can be interpreted as mathematical objects, functions, propositions, or pr
 The only two things Lean can do is \sphinxstyleemphasis{create} terms and \sphinxstyleemphasis{check} their types.
 By iterating these two operations, we can teach Lean to verify complex mathematical proofs.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{introduction:easy-fermat}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kd}{def} \PYG{n}{x} \PYG{o}{:=} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{2}                                  \PYG{c+c1}{\PYGZhy{}\PYGZhy{} a natural number}
 \PYG{k+kd}{def} \PYG{n}{f} \PYG{o}{(}\PYG{n}{x} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)} \PYG{o}{:=} \PYG{n}{x} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{3}                          \PYG{c+c1}{\PYGZhy{}\PYGZhy{} a function}
@@ -132,7 +133,7 @@ By iterating these two operations, we can teach Lean to verify complex mathemati
 \PYG{n}{easy\PYGZus{}proof} \PYG{o}{:} \PYG{n}{easy\PYGZus{}theorem\PYGZus{}statement}             \PYG{c+c1}{\PYGZhy{}\PYGZhy{} proof of easy\PYGZus{}theorem}
 \PYG{o}{:=}
 \PYG{k+kd}{begin}
-  \PYG{n}{refl}\PYG{o}{,}                                         \PYG{c+c1}{\PYGZhy{}\PYGZhy{} a tactic}
+  \PYG{n}{rw} \PYG{n}{easy\PYGZus{}theorem\PYGZus{}statement}\PYG{o}{,}                    \PYG{c+c1}{\PYGZhy{}\PYGZhy{} a tactic}
 \PYG{k+kd}{end}
 
 \PYG{k+kd}{theorem}
@@ -156,8 +157,9 @@ By iterating these two operations, we can teach Lean to verify complex mathemati
 \sphinxAtStartPar
 Every once in a while, you will see a code snippet like this:
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{introduction:hello-world}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k}{\PYGZsh{}eval} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Hello, World!}\PYG{l+s+s2}{\PYGZdq{}}
+  \PYG{k}{\PYGZsh{}eval} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{Hello, World!}\PYG{l+s+s2}{\PYGZdq{}}
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
@@ -236,10 +238,6 @@ Large chunks of these notes are taken from various learning resources available 
 \sphinxAtStartPar
 \sphinxhref{https://www.twitch.tv/kbuzzard}{Kevin Buzzard’s Twitch channel}. In particular, checkout \sphinxhref{https://www.twitch.tv/videos/665779560}{this video} about summer projects.
 
-\item {} 
-\sphinxAtStartPar
-\sphinxhref{https://www.twitch.tv/jalexstark}{Jalex Stark’s Twitch channel}.
-
 \end{enumerate}
 
 \end{description}
@@ -300,6 +298,7 @@ and so a proposition \sphinxcode{\sphinxupquote{P}} is \sphinxcode{\sphinxupquot
 \sphinxAtStartPar
 In Lean, a proposition and its proof are written using the following syntax.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day1:flt}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kd}{theorem} \PYG{n}{fermats\PYGZus{}last\PYGZus{}theorem}
   \PYG{o}{(}\PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}
@@ -419,6 +418,7 @@ If you want to use this repeatedly, you can type \sphinxcode{\sphinxupquote{rint
 
 \def\sphinxLiteralBlockLabel{\label{\detokenize{day1:refine-rintro-examples}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n}{tactic}
 \PYG{l+s+sd}{/\PYGZhy{}\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}
 
 \PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{r}\PYG{l+s+sd}{e}\PYG{l+s+sd}{f}\PYG{l+s+sd}{i}\PYG{l+s+sd}{n}\PYG{l+s+sd}{e}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}
@@ -513,8 +513,9 @@ The \sphinxcode{\sphinxupquote{\_}} stands in for a proof of \sphinxcode{\sphinx
 Often these two tactics can be used interchangeably.
 When writing a big proof, you often want a healthy combination of the two that makes the proof readable.
 
-\def\sphinxLiteralBlockLabel{\label{\detokenize{day1:have-apply-examples}}}
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day1:have-refine-examples}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n}{tactic}
 \PYG{l+s+sd}{/\PYGZhy{}\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}
 
 \PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{h}\PYG{l+s+sd}{a}\PYG{l+s+sd}{v}\PYG{l+s+sd}{e}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}
@@ -550,6 +551,12 @@ When writing a big proof, you often want a healthy combination of the two that m
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
 \end{sphinxVerbatim}
+
+\sphinxAtStartPar
+We will be learning a lot of tactics this week.
+If ever you lose track of them, check out the {\hyperref[\detokenize{tactics::doc}]{\sphinxcrossref{\DUrole{doc}{Glossary of tactics}}}},
+which lists all of the tactics that are mentioned in these notes,
+as well as some others which are not needed for this class, but may come up if you read other code in Lean.
 
 
 \section{And / Or}
@@ -676,7 +683,28 @@ If the target of the current goal is \sphinxcode{\sphinxupquote{P ∨ Q}}, then
 \end{sphinxVerbatim}
 
 
-\subsection{Negation}
+\subsection{Optional Sidenote on Brackets}
+\label{\detokenize{day1:optional-sidenote-on-brackets}}
+\sphinxAtStartPar
+We’ve discussed that building a term of type \sphinxcode{\sphinxupquote{P}} is pretty much the same thing as providing a proof of \sphinxcode{\sphinxupquote{P}}.
+We’ve also seen that if you want to provide a term of type \sphinxcode{\sphinxupquote{P ∧ Q}}, all you need is a term \sphinxcode{\sphinxupquote{hp : P}}, a term \sphinxcode{\sphinxupquote{hq : Q}}, and the \sphinxcode{\sphinxupquote{split}} tactic.
+However, you don’t \sphinxstyleemphasis{need} the \sphinxcode{\sphinxupquote{split}} tactic for this, you can also build the term directly, using the angle brackets \sphinxcode{\sphinxupquote{⟨⟩}}, typed with \sphinxcode{\sphinxupquote{\textbackslash{}langle}} and \sphinxcode{\sphinxupquote{\textbackslash{}rangle}}.
+For example:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+example (P Q : Prop) (hp : P) (hq : Q) : P ∧ Q :=
+begin
+  refine ⟨hp, hq⟩,
+end
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+This works because \sphinxcode{\sphinxupquote{⟨hp, hq⟩}} is a term of type \sphinxcode{\sphinxupquote{P ∧ Q}}, because Lean defines \sphinxcode{\sphinxupquote{P ∧ Q}} to be the type of ordered pairs, consisting of a term of type \sphinxcode{\sphinxupquote{P}} and then a term of type \sphinxcode{\sphinxupquote{Q}}.
+If you want to explore this, try using this to rewrite your above proofs that use \sphinxcode{\sphinxupquote{∧}}.
+(If you do, what does \sphinxcode{\sphinxupquote{refine ⟨\_, \_⟩,}} do?)
+
+
+\section{Negation}
 \label{\detokenize{day1:negation}}
 \sphinxAtStartPar
 In type theory, there is a special proposition \sphinxcode{\sphinxupquote{false : Prop}} which has no proof (hence is \sphinxstyleemphasis{empty}).
@@ -709,6 +737,7 @@ Here are some \DUrole{xref,std,std-doc}{hints} if you get stuck.
 
 \def\sphinxLiteralBlockLabel{\label{\detokenize{day1:negation-examples}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n}{tactic}
 \PYG{l+s+sd}{/\PYGZhy{}\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}
 
 \PYG{l+s+sd}{R}\PYG{l+s+sd}{e}\PYG{l+s+sd}{c}\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{a}\PYG{l+s+sd}{t}
@@ -743,6 +772,7 @@ In Lean, this is written as \sphinxcode{\sphinxupquote{false → P}}, and whenev
 
 \def\sphinxLiteralBlockLabel{\label{\detokenize{day1:explosion-examples}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n}{tactic}
 \PYG{l+s+sd}{/\PYGZhy{}\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}
 
 \PYG{l+s+sd}{R}\PYG{l+s+sd}{e}\PYG{l+s+sd}{c}\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{a}\PYG{l+s+sd}{t}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{o}\PYG{l+s+sd}{r}\PYG{l+s+sd}{ }\PYG{l+s+sd}{a}\PYG{l+s+sd}{n}\PYG{l+s+sd}{y}\PYG{l+s+sd}{ }\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{P}\PYG{l+s+sd}{ }\PYG{l+s+sd}{:}\PYG{l+s+sd}{ }\PYG{l+s+sd}{P}\PYG{l+s+sd}{r}\PYG{l+s+sd}{o}\PYG{l+s+sd}{p}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{,}\PYG{l+s+sd}{ }\PYG{l+s+sd}{y}\PYG{l+s+sd}{o}\PYG{l+s+sd}{u}\PYG{l+s+sd}{ }\PYG{l+s+sd}{c}\PYG{l+s+sd}{a}\PYG{l+s+sd}{n}\PYG{l+s+sd}{ }\PYG{l+s+sd}{u}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{f}\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{.}\PYG{l+s+sd}{e}\PYG{l+s+sd}{l}\PYG{l+s+sd}{i}\PYG{l+s+sd}{m}\PYG{l+s+sd}{ }\PYG{l+s+sd}{:}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{→}\PYG{l+s+sd}{ }\PYG{l+s+sd}{P}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}
@@ -853,8 +883,8 @@ Every time you successfully construct a proof of a theorem say
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 theorem tautology (P : Prop) : P → P :=
 begin
-  intro hp,
-  exact hp,
+  rintro hp,
+  refine hp,
 end
 \end{sphinxVerbatim}
 
@@ -887,7 +917,7 @@ Once constructed, any term can be used in a later proof. For example,
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 example (P Q : Prop) : (P → Q) → (P → Q) :=
 begin
-  exact tautology (P → Q),
+  refine tautology (P → Q),
 end
 \end{sphinxVerbatim}
 
@@ -899,8 +929,24 @@ only remembers its type.
 All the proof terms can then be used in later proofs.
 All of this falls under the giant umbrella of the \sphinxhref{https://en.wikipedia.org/wiki/Curry\%E2\%80\%93Howard\_correspondence}{Curry–Howard correspondence}.
 
+
+\subsection{Optional Sidenote on Lambda}
+\label{\detokenize{day2:optional-sidenote-on-lambda}}
 \sphinxAtStartPar
-We’ll now introduce an axiom which will give us the full power of proof by contradiction.
+Speaking of generalized functions, and terms, we can define the term \sphinxcode{\sphinxupquote{tautology}} directly, without using \sphinxcode{\sphinxupquote{rintro}}:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+theorem tautology (P : Prop) : P → P :=
+begin
+  refine λ hp, hp,
+end
+\end{sphinxVerbatim}
+
+\sphinxAtStartPar
+The \sphinxcode{\sphinxupquote{λ}}, typed \sphinxcode{\sphinxupquote{\textbackslash{}lambda}}, plays basically the role of \sphinxcode{\sphinxupquote{rintro}}.
+In general, the term \sphinxcode{\sphinxupquote{λ x, y}} will define a (generalized) function that on input \sphinxcode{\sphinxupquote{x}}, gives output \sphinxcode{\sphinxupquote{y}}.
+For instance, once we can talk about addition, \sphinxcode{\sphinxupquote{λ x, x + 2}} will be the function that adds 2 to a given natural number.
+If you want to, you can play around with using \sphinxcode{\sphinxupquote{λ}} and \sphinxcode{\sphinxupquote{rintro}} interchangeably.
 
 
 \section{The Law of the Excluded Middle}
@@ -909,7 +955,10 @@ We’ll now introduce an axiom which will give us the full power of proof by con
 You can prove exactly one of the following using just \sphinxcode{\sphinxupquote{refine}}, \sphinxcode{\sphinxupquote{rintro}}, and \sphinxcode{\sphinxupquote{have}}.
 Can you find which one?
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day2:lem-examples-1}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n}{tactic}
+
 \PYG{l+s+sd}{/\PYGZhy{}\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}
 
 \PYG{l+s+sd}{Y}\PYG{l+s+sd}{o}\PYG{l+s+sd}{u}\PYG{l+s+sd}{ }\PYG{l+s+sd}{c}\PYG{l+s+sd}{a}\PYG{l+s+sd}{n}\PYG{l+s+sd}{ }\PYG{l+s+sd}{p}\PYG{l+s+sd}{r}\PYG{l+s+sd}{o}\PYG{l+s+sd}{v}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{e}\PYG{l+s+sd}{x}\PYG{l+s+sd}{a}\PYG{l+s+sd}{c}\PYG{l+s+sd}{t}\PYG{l+s+sd}{l}\PYG{l+s+sd}{y}\PYG{l+s+sd}{ }\PYG{l+s+sd}{o}\PYG{l+s+sd}{n}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{o}\PYG{l+s+sd}{f}\PYG{l+s+sd}{ }\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{o}\PYG{l+s+sd}{l}\PYG{l+s+sd}{l}\PYG{l+s+sd}{o}\PYG{l+s+sd}{w}\PYG{l+s+sd}{i}\PYG{l+s+sd}{n}\PYG{l+s+sd}{g}\PYG{l+s+sd}{ }\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{r}\PYG{l+s+sd}{e}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{u}\PYG{l+s+sd}{s}\PYG{l+s+sd}{i}\PYG{l+s+sd}{n}\PYG{l+s+sd}{g}\PYG{l+s+sd}{ }\PYG{l+s+sd}{j}\PYG{l+s+sd}{u}\PYG{l+s+sd}{s}\PYG{l+s+sd}{t}
@@ -1144,6 +1193,7 @@ We say that \sphinxcode{\sphinxupquote{x}} is \sphinxstyleemphasis{related} to \
 Show that if a relation is symmetric, transitive, and connected,
 then it is also reflexive.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day2:relationship-paradox}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic}
 
@@ -1209,6 +1259,7 @@ Mathematically, this is saying “because \sphinxcode{\sphinxupquote{P = Q}}, we
 \sphinxAtStartPar
 To get the left arrow, type \sphinxcode{\sphinxupquote{\textbackslash{}l}}. If you want to rewrite a bunch of things in a row, you can type \sphinxcode{\sphinxupquote{rw {[}h1, h2, h3{]},}}.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day2:rw-examples}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic} \PYG{n}{data.nat.basic}
 \PYG{k+kn}{open} \PYG{n}{nat}
@@ -1269,6 +1320,7 @@ such that \sphinxcode{\sphinxupquote{f(x) = y}}.
 In type theory, for every function \sphinxcode{\sphinxupquote{f}} we can define a corresponding proposition
 \sphinxcode{\sphinxupquote{surjective (f) := ∀ y, ∃ x, f x = y}} and a function being surjective is equivalent to saying that the proposition \sphinxcode{\sphinxupquote{surjective(f)}} is inhabited.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day2:surjective}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic}
 \PYG{k+kn}{open} \PYG{n}{function}
@@ -1373,11 +1425,11 @@ Here are two of Lean’s many tactics that automate basic calculations for us.
 \sphinxcode{\sphinxupquote{norm\_num}}
 &
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{norm\_num}} is Lean’s calculator. If the target has a proof that involves \sphinxstyleemphasis{only} numbers and arithmetic operations,
-then \sphinxcode{\sphinxupquote{norm\_num}} will close this goal.
+\sphinxcode{\sphinxupquote{norm\_num}} is Lean’s calculator. If the target has a proof that involves \sphinxstyleemphasis{only} natural numbers and arithmetic operations,
+then \sphinxcode{\sphinxupquote{norm\_num}} will close this goal. This is usually the most powerful tactic for dealing with natural numbers.
 
 \sphinxAtStartPar
-If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinxupquote{norm\_num at hp,}} tries to use simplify \sphinxcode{\sphinxupquote{hp}} using basic arithmetic operations.
+If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinxupquote{norm\_num at hp,}} tries to simplify \sphinxcode{\sphinxupquote{hp}} using basic arithmetic operations.
 \\
 \hline
 \sphinxAtStartPar
@@ -1385,11 +1437,11 @@ If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinx
 &
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{ring\_nf,}} is Lean’s algebraic manipulator.
-If the target has a proof that involves \sphinxstyleemphasis{only} algebraic operations,
+If the target has a proof that involves \sphinxstyleemphasis{only} addition and multiplication,
 then \sphinxcode{\sphinxupquote{ring\_nf,}} will close the goal.
 
 \sphinxAtStartPar
-If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinxupquote{ring\_nf at hp,}} tries to use simplify \sphinxcode{\sphinxupquote{hp}} using basic algebraic operations.
+If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinxupquote{ring\_nf at hp,}} tries to simplify \sphinxcode{\sphinxupquote{hp}} using basic algebraic operations.
 \\
 \hline
 \sphinxAtStartPar
@@ -1397,12 +1449,14 @@ If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinx
 &
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{linarith,}} is Lean’s inequality solver.
+It can read and use your hypotheses, and can sometimes also solve facts that aren’t explicitly about inequalities.
 \\
 \hline
 \end{tabular}
 \par
 \sphinxattableend\end{savenotes}
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day3:trivial-tactic-examples}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic} \PYG{n}{data.nat.prime}
 
@@ -1410,11 +1464,11 @@ If \sphinxcode{\sphinxupquote{hp : P}} is an assumption then \sphinxcode{\sphinx
 
 \PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{n}\PYG{l+s+sd}{o}\PYG{l+s+sd}{r}\PYG{l+s+sd}{m}\PYG{l+s+sd}{\PYGZus{}}\PYG{l+s+sd}{n}\PYG{l+s+sd}{u}\PYG{l+s+sd}{m}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}
 
-\PYG{l+s+sd}{ }\PYG{l+s+sd}{ }\PYG{l+s+sd}{U}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{f}\PYG{l+s+sd}{u}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{o}\PYG{l+s+sd}{r}\PYG{l+s+sd}{ }\PYG{l+s+sd}{a}\PYG{l+s+sd}{r}\PYG{l+s+sd}{i}\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{m}\PYG{l+s+sd}{e}\PYG{l+s+sd}{t}\PYG{l+s+sd}{i}\PYG{l+s+sd}{c}\PYG{l+s+sd}{.}
+\PYG{l+s+sd}{ }\PYG{l+s+sd}{ }\PYG{l+s+sd}{U}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{f}\PYG{l+s+sd}{u}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{o}\PYG{l+s+sd}{r}\PYG{l+s+sd}{ }\PYG{l+s+sd}{a}\PYG{l+s+sd}{r}\PYG{l+s+sd}{i}\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{m}\PYG{l+s+sd}{e}\PYG{l+s+sd}{t}\PYG{l+s+sd}{i}\PYG{l+s+sd}{c}\PYG{l+s+sd}{ }\PYG{l+s+sd}{o}\PYG{l+s+sd}{f}\PYG{l+s+sd}{ }\PYG{l+s+sd}{n}\PYG{l+s+sd}{a}\PYG{l+s+sd}{t}\PYG{l+s+sd}{u}\PYG{l+s+sd}{r}\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{n}\PYG{l+s+sd}{u}\PYG{l+s+sd}{m}\PYG{l+s+sd}{b}\PYG{l+s+sd}{e}\PYG{l+s+sd}{r}\PYG{l+s+sd}{s}\PYG{l+s+sd}{.}
 
 \PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{r}\PYG{l+s+sd}{i}\PYG{l+s+sd}{n}\PYG{l+s+sd}{g}\PYG{l+s+sd}{\PYGZus{}}\PYG{l+s+sd}{n}\PYG{l+s+sd}{f}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}
 
-\PYG{l+s+sd}{ }\PYG{l+s+sd}{ }\PYG{l+s+sd}{U}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{f}\PYG{l+s+sd}{u}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{o}\PYG{l+s+sd}{r}\PYG{l+s+sd}{ }\PYG{l+s+sd}{b}\PYG{l+s+sd}{a}\PYG{l+s+sd}{s}\PYG{l+s+sd}{i}\PYG{l+s+sd}{c}\PYG{l+s+sd}{ }\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{g}\PYG{l+s+sd}{e}\PYG{l+s+sd}{b}\PYG{l+s+sd}{r}\PYG{l+s+sd}{a}\PYG{l+s+sd}{.}
+\PYG{l+s+sd}{ }\PYG{l+s+sd}{ }\PYG{l+s+sd}{U}\PYG{l+s+sd}{s}\PYG{l+s+sd}{e}\PYG{l+s+sd}{f}\PYG{l+s+sd}{u}\PYG{l+s+sd}{l}\PYG{l+s+sd}{ }\PYG{l+s+sd}{f}\PYG{l+s+sd}{o}\PYG{l+s+sd}{r}\PYG{l+s+sd}{ }\PYG{l+s+sd}{b}\PYG{l+s+sd}{a}\PYG{l+s+sd}{s}\PYG{l+s+sd}{i}\PYG{l+s+sd}{c}\PYG{l+s+sd}{ }\PYG{l+s+sd}{a}\PYG{l+s+sd}{l}\PYG{l+s+sd}{g}\PYG{l+s+sd}{e}\PYG{l+s+sd}{b}\PYG{l+s+sd}{r}\PYG{l+s+sd}{a}\PYG{l+s+sd}{ }\PYG{l+s+sd}{w}\PYG{l+s+sd}{i}\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{ }\PYG{l+s+sd}{+}\PYG{l+s+sd}{ }\PYG{l+s+sd}{a}\PYG{l+s+sd}{n}\PYG{l+s+sd}{d}\PYG{l+s+sd}{ }\PYG{l+s+sd}{*}\PYG{l+s+sd}{.}
 
 \PYG{l+s+sd}{`}\PYG{l+s+sd}{`}\PYG{l+s+sd}{l}\PYG{l+s+sd}{i}\PYG{l+s+sd}{n}\PYG{l+s+sd}{a}\PYG{l+s+sd}{r}\PYG{l+s+sd}{i}\PYG{l+s+sd}{t}\PYG{l+s+sd}{h}\PYG{l+s+sd}{`}\PYG{l+s+sd}{`}
 
@@ -1495,7 +1549,7 @@ adds \sphinxcode{\sphinxupquote{hp : P}} as a hypothesis to the original goal.
 \sphinxAtStartPar
 The use of \sphinxcode{\sphinxupquote{have}} that we have already seen is related to this one.
 When you use the tactic \sphinxcode{\sphinxupquote{have hq := f(hp),}}
-Lean is internally replacing it with \sphinxcode{\sphinxupquote{have hq : Q, exact f(hp),}}.
+Lean is internally replacing it with \sphinxcode{\sphinxupquote{have hq : Q, refine f(hp),}}.
 
 \sphinxAtStartPar
 \sphinxcode{\sphinxupquote{have}} is crucial for being able to use theorems from the library.
@@ -1509,6 +1563,7 @@ If you need a term of type \sphinxcode{\sphinxupquote{n > 0}} and you only have 
 We will need the following lemma later. Remember to save your proof.
 (Here’s a \DUrole{xref,std,std-doc}{hint} if you need one.)
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day3:have-exercise}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic} \PYG{n}{data.nat.prime}
 \PYG{k+kn}{open} \PYG{n}{nat}
@@ -1532,7 +1587,7 @@ We will need the following lemma later. Remember to save your proof.
 
 \PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}}\PYG{l+s+sd}{\PYGZhy{}/}
 
-\PYG{k+kd}{theorem} \PYG{n}{dvd\PYGZus{}sub\PYGZus{}one} \PYG{o}{\PYGZob{}}\PYG{n}{p} \PYG{n}{a} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{\PYGZcb{}} \PYG{o}{:} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{n}{p} \PYG{n+nb+bp}{=} \PYG{l+m+mi}{1} \PYG{o}{:=}
+\PYG{k+kd}{theorem} \PYG{n}{dvd\PYGZus{}sub\PYGZus{}one} \PYG{o}{\PYGZob{}}\PYG{n}{p} \PYG{n}{a} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{\PYGZcb{}} \PYG{o}{:} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{o}{:=}
 \PYG{k+kd}{begin}
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
@@ -1558,29 +1613,29 @@ We’ll need the following definitions and theorems from the library.
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{prime.not\_dvd\_one : (prime p) → ¬ p ∣ 1}}
+\sphinxcode{\sphinxupquote{nat.prime.not\_dvd\_one : (prime p) → ¬ p ∣ 1}}
 
 \end{itemize}
 
 \sphinxlineitem{\sphinxstylestrong{Factorials}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{n.fact := n!  \sphinxhyphen{}\sphinxhyphen{}n factorial}}
+\sphinxcode{\sphinxupquote{factorial n}} is defined to be n!
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{fact\_pos : ∀ (n : ℕ), 0 < n.fact}}
+\sphinxcode{\sphinxupquote{factorial\_pos : ∀ (n : ℕ), 0 < factorial n}}
 
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{dvd\_fact : 0 < m → m ≤ n → m ∣ n.fact}}
+\sphinxcode{\sphinxupquote{dvd\_factorial : 0 < m → m ≤ n → m ∣ factorial n}}
 
 \end{itemize}
 
 \sphinxlineitem{\sphinxstylestrong{Smallest factor}}\begin{itemize}
 \item {} 
 \sphinxAtStartPar
-\sphinxcode{\sphinxupquote{n.min\_fac :=}} smallest non\sphinxhyphen{}trivial factor of \sphinxcode{\sphinxupquote{n}}
+\sphinxcode{\sphinxupquote{n.min\_fac}} is defined to be the smallest non\sphinxhyphen{}trivial factor of \sphinxcode{\sphinxupquote{n}}
 
 \item {} 
 \sphinxAtStartPar
@@ -1603,6 +1658,7 @@ Check out \sphinxhref{https://leanprover-community.github.io/mathlib\_docs/data/
 The exercise below is very open\sphinxhyphen{}ended.
 You should take your time, check the goal window at every step, and sketch out the proof on paper whenever you get lost.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day3:inf-primes}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic} \PYG{n}{data.nat.prime}
 \PYG{k+kd}{noncomputable theory}
@@ -1610,24 +1666,23 @@ You should take your time, check the goal window at every step, and sketch out t
 
 \PYG{k+kn}{open} \PYG{n}{nat}
 
-\PYG{k+kd}{theorem} \PYG{n}{dvd\PYGZus{}sub\PYGZus{}one} \PYG{o}{\PYGZob{}}\PYG{n}{p} \PYG{n}{a} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{\PYGZcb{}} \PYG{o}{:} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{n}{p} \PYG{n+nb+bp}{=} \PYG{l+m+mi}{1} \PYG{o}{:=}
+\PYG{k+kd}{theorem} \PYG{n}{dvd\PYGZus{}sub\PYGZus{}one} \PYG{o}{\PYGZob{}}\PYG{n}{p} \PYG{n}{a} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{\PYGZcb{}} \PYG{o}{:} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{n}{a} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n}{p} \PYG{n+nb+bp}{∣} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{o}{:=}
 \PYG{k+kd}{begin}
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
 
 \PYG{c}{/\PYGZhy{}}
-\PYG{c+cm}{d}\PYG{c+cm}{v}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{s}\PYG{c+cm}{u}\PYG{c+cm}{b}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{)}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{+}\PYG{c+cm}{ }\PYG{c+cm}{1}\PYG{c+cm}{)}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{1}
+\PYG{c+cm}{d}\PYG{c+cm}{v}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{s}\PYG{c+cm}{u}\PYG{c+cm}{b}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{)}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{+}\PYG{c+cm}{ }\PYG{c+cm}{1}\PYG{c+cm}{)}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{1}\PYG{c+cm}{)}
 
 \PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{∃}\PYG{c+cm}{ }\PYG{c+cm}{k}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{*}\PYG{c+cm}{ }\PYG{c+cm}{k}
 \PYG{c+cm}{m}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{ }\PYG{c+cm}{2}\PYG{c+cm}{ }\PYG{c+cm}{≤}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∧}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{1}\PYG{c+cm}{ }\PYG{c+cm}{∨}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{)}
-\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{n}\PYG{c+cm}{o}\PYG{c+cm}{t}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{¬}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{1}
-\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}
+\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{.}\PYG{c+cm}{n}\PYG{c+cm}{o}\PYG{c+cm}{t}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{d}\PYG{c+cm}{v}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{)}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{¬}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{1}
 
-\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{!}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{)}
-\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}
-\PYG{c+cm}{d}\PYG{c+cm}{v}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{≤}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}
+\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{i}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{d}\PYG{c+cm}{e}\PYG{c+cm}{f}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{ }\PYG{c+cm}{b}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{!}
+\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{ }\PYG{c+cm}{n}
+\PYG{c+cm}{d}\PYG{c+cm}{v}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{≤}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{ }\PYG{c+cm}{n}
 
-\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{s}\PYG{c+cm}{m}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{l}\PYG{c+cm}{e}\PYG{c+cm}{s}\PYG{c+cm}{t}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{o}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZhy{}}\PYG{c+cm}{t}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{v}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{ }\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{ }\PYG{c+cm}{o}\PYG{c+cm}{f}\PYG{c+cm}{ }\PYG{c+cm}{n}
+\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{ }\PYG{c+cm}{i}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{d}\PYG{c+cm}{e}\PYG{c+cm}{f}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{ }\PYG{c+cm}{b}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{t}\PYG{c+cm}{h}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{s}\PYG{c+cm}{m}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{l}\PYG{c+cm}{e}\PYG{c+cm}{s}\PYG{c+cm}{t}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{o}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZhy{}}\PYG{c+cm}{t}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{v}\PYG{c+cm}{i}\PYG{c+cm}{a}\PYG{c+cm}{l}\PYG{c+cm}{ }\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{t}\PYG{c+cm}{o}\PYG{c+cm}{r}\PYG{c+cm}{ }\PYG{c+cm}{o}\PYG{c+cm}{f}\PYG{c+cm}{ }\PYG{c+cm}{n}
 \PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{≠}\PYG{c+cm}{ }\PYG{c+cm}{1}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}
 \PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}
 \PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{d}\PYG{c+cm}{v}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{f}\PYG{c+cm}{a}\PYG{c+cm}{c}\PYG{c+cm}{ }\PYG{c+cm}{∣}\PYG{c+cm}{ }\PYG{c+cm}{n}
@@ -1635,7 +1690,7 @@ You should take your time, check the goal window at every step, and sketch out t
 
 \PYG{k+kd}{theorem} \PYG{n}{exists\PYGZus{}infinite\PYGZus{}primes} \PYG{o}{(}\PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)} \PYG{o}{:} \PYG{n+nb+bp}{∃} \PYG{n}{p}\PYG{o}{,} \PYG{n}{nat.prime} \PYG{n}{p} \PYG{n+nb+bp}{∧} \PYG{n}{p} \PYG{n+nb+bp}{≥} \PYG{n}{n} \PYG{o}{:=}
 \PYG{k+kd}{begin}
-  \PYG{n}{set} \PYG{n}{p}\PYG{o}{:=} \PYG{o}{(}\PYG{n}{n.fact} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)}\PYG{n+nb+bp}{.}\PYG{n}{min\PYGZus{}fac}\PYG{o}{,}
+  \PYG{n}{set} \PYG{n}{p} \PYG{o}{:=} \PYG{o}{(}\PYG{n}{n.factorial} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)}\PYG{n+nb+bp}{.}\PYG{n}{min\PYGZus{}fac}\PYG{o}{,} \PYG{c+c1}{\PYGZhy{}\PYGZhy{} Use `set` instead of `have` when you\PYGZsq{}re just making an abbreviation for a number.}
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
 \end{sphinxVerbatim}
@@ -1854,11 +1909,11 @@ Have fun!
 \end{sphinxVerbatim}
 
 
-\subsection{Lemmas for proving (*) assuming 0 < m}
-\label{\detokenize{day4:lemmas-for-proving-assuming-0-m}}
+\subsection{Lemmas for proving (*) assuming m ≠ 0}
+\label{\detokenize{day4:lemmas-for-proving-assuming-m-0}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{c}{/\PYGZhy{}}
-\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{w}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{p}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZca{}}\PYG{c+cm}{ }\PYG{c+cm}{n}
+\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{w}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZca{}}\PYG{c+cm}{ }\PYG{c+cm}{n}
 \PYG{c+cm}{\PYGZhy{}/}
 \PYG{k+kd}{lemma} \PYG{n}{ge\PYGZus{}zero\PYGZus{}sq\PYGZus{}ge\PYGZus{}zero} \PYG{o}{\PYGZob{}}\PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{\PYGZcb{}} \PYG{o}{(}\PYG{n}{hne} \PYG{o}{:} \PYG{l+m+mi}{0} \PYG{n+nb+bp}{\PYGZlt{}} \PYG{n}{n}\PYG{o}{)} \PYG{o}{:} \PYG{o}{(}\PYG{l+m+mi}{0} \PYG{n+nb+bp}{\PYGZlt{}} \PYG{n}{n}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2}\PYG{o}{)}
 \PYG{o}{:=}
@@ -1866,39 +1921,43 @@ Have fun!
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
 
+\PYG{c}{/\PYGZhy{}}
+\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{m}\PYG{c+cm}{u}\PYG{c+cm}{l}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{l}\PYG{c+cm}{e}\PYG{c+cm}{f}\PYG{c+cm}{t}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{i}\PYG{c+cm}{n}\PYG{c+cm}{j}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{b}\PYG{c+cm}{ }\PYG{c+cm}{c}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{b}\PYG{c+cm}{ }\PYG{c+cm}{*}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{c}\PYG{c+cm}{ }\PYG{c+cm}{*}\PYG{c+cm}{ }\PYG{c+cm}{a}\PYG{c+cm}{ }\PYG{c+cm}{↔}\PYG{c+cm}{ }\PYG{c+cm}{b}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{c}\PYG{c+cm}{)}
+\PYG{c+cm}{\PYGZhy{}/}
 \PYG{k+kd}{lemma} \PYG{n}{cancellation\PYGZus{}lemma} \PYG{o}{\PYGZob{}}\PYG{n}{k} \PYG{n}{m} \PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{\PYGZcb{}}
 \PYG{o}{(}\PYG{n}{hk\PYGZus{}pos} \PYG{o}{:} \PYG{l+m+mi}{0} \PYG{n+nb+bp}{\PYGZlt{}} \PYG{n}{k}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2}\PYG{o}{)}
 \PYG{o}{(}\PYG{n}{hmn} \PYG{o}{:} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{o}{(}\PYG{n}{m} \PYG{n+nb+bp}{*} \PYG{n}{k}\PYG{o}{)} \PYG{n+nb+bp}{\PYGZca{}} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{=} \PYG{o}{(}\PYG{n}{n} \PYG{n+nb+bp}{*} \PYG{n}{k}\PYG{o}{)} \PYG{n+nb+bp}{\PYGZca{}} \PYG{l+m+mi}{2}\PYG{o}{)}
 \PYG{o}{:} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{m} \PYG{n+nb+bp}{\PYGZca{}} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{=} \PYG{n}{n} \PYG{n+nb+bp}{\PYGZca{}} \PYG{l+m+mi}{2}
 \PYG{o}{:=}
 \PYG{k+kd}{begin}
-  \PYG{n}{rw} \PYG{n+nb+bp}{←} \PYG{n}{nat.mul\PYGZus{}left\PYGZus{}inj} \PYG{n}{hk\PYGZus{}pos}\PYG{o}{,} \PYG{c+c1}{\PYGZhy{}\PYGZhy{} multiply on both sides by k\PYGZca{}2}
-  \PYG{n}{ring\PYGZus{}nf} \PYG{n}{at} \PYG{n+nb+bp}{*}\PYG{o}{,}
-  \PYG{n}{exact} \PYG{n}{hmn}\PYG{o}{,}
+  \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
 \end{sphinxVerbatim}
 
 
-\subsection{Prove (*) assuming 0 < m}
-\label{\detokenize{day4:prove-assuming-0-m}}
+\subsection{Prove (*) assuming m ≠ 0}
+\label{\detokenize{day4:prove-assuming-m-0}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{c}{/\PYGZhy{}}
 \PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{f}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{l}\PYG{c+cm}{e}\PYG{c+cm}{f}\PYG{c+cm}{t}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{.}\PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{n}
 \PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{f}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{g}\PYG{c+cm}{h}\PYG{c+cm}{t}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{.}\PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{n}
 \PYG{c+cm}{e}\PYG{c+cm}{x}\PYG{c+cm}{i}\PYG{c+cm}{s}\PYG{c+cm}{t}\PYG{c+cm}{s}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{c}\PYG{c+cm}{o}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{.}\PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{∃}\PYG{c+cm}{ }\PYG{c+cm}{(}\PYG{c+cm}{m}\PYG{c+cm}{\PYGZsq{}}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{\PYGZsq{}}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{)}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{\PYGZsq{}}\PYG{c+cm}{.}\PYG{c+cm}{c}\PYG{c+cm}{o}\PYG{c+cm}{p}\PYG{c+cm}{r}\PYG{c+cm}{i}\PYG{c+cm}{m}\PYG{c+cm}{e}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{\PYGZsq{}}\PYG{c+cm}{ }\PYG{c+cm}{∧}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{\PYGZsq{}}\PYG{c+cm}{ }\PYG{c+cm}{*}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{.}\PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{∧}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{=}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{\PYGZsq{}}\PYG{c+cm}{ }\PYG{c+cm}{*}\PYG{c+cm}{ }\PYG{c+cm}{m}\PYG{c+cm}{.}\PYG{c+cm}{g}\PYG{c+cm}{c}\PYG{c+cm}{d}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{)}
+\PYG{c+cm}{n}\PYG{c+cm}{a}\PYG{c+cm}{t}\PYG{c+cm}{.}\PYG{c+cm}{p}\PYG{c+cm}{o}\PYG{c+cm}{s}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{o}\PYG{c+cm}{f}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{n}\PYG{c+cm}{e}\PYG{c+cm}{\PYGZus{}}\PYG{c+cm}{z}\PYG{c+cm}{e}\PYG{c+cm}{r}\PYG{c+cm}{o}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{∀}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZob{}}\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{:}\PYG{c+cm}{ }\PYG{c+cm}{ℕ}\PYG{c+cm}{\PYGZcb{}}\PYG{c+cm}{,}\PYG{c+cm}{ }\PYG{c+cm}{n}\PYG{c+cm}{ }\PYG{c+cm}{≠}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{→}\PYG{c+cm}{ }\PYG{c+cm}{0}\PYG{c+cm}{ }\PYG{c+cm}{\PYGZlt{}}\PYG{c+cm}{ }\PYG{c+cm}{n}
+
 \PYG{c+cm}{\PYGZhy{}/}
 \PYG{k+kd}{theorem} \PYG{n}{wlog\PYGZus{}coprime} \PYG{o}{:}
   \PYG{o}{(}\PYG{n+nb+bp}{∃} \PYG{o}{(}\PYG{n}{m} \PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}\PYG{o}{,}
   \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{m}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{=} \PYG{n}{n}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{∧}
-  \PYG{l+m+mi}{0} \PYG{n+nb+bp}{\PYGZlt{}} \PYG{n}{m} \PYG{o}{)}
+  \PYG{n}{m} \PYG{n+nb+bp}{≠} \PYG{l+m+mi}{0} \PYG{o}{)}
   \PYG{n+nb+bp}{→} \PYG{o}{(}\PYG{n+nb+bp}{∃} \PYG{o}{(}\PYG{n}{m\PYGZsq{}} \PYG{n}{n\PYGZsq{}} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}\PYG{o}{,}
     \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{m\PYGZsq{}}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{=} \PYG{n}{n\PYGZsq{}}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{∧}
     \PYG{n}{m\PYGZsq{}.coprime} \PYG{n}{n\PYGZsq{}} \PYG{o}{)}
 \PYG{o}{:=}
 \PYG{k+kd}{begin}
-  \PYG{n}{rintro} \PYG{o}{⟨}\PYG{n}{m}\PYG{o}{,} \PYG{n}{n}\PYG{o}{,} \PYG{n}{hmn}\PYG{o}{,} \PYG{n}{hme0}\PYG{o}{⟩}\PYG{o}{,}
+  \PYG{n}{rintro} \PYG{o}{⟨}\PYG{n}{m}\PYG{o}{,} \PYG{n}{n}\PYG{o}{,} \PYG{n}{hmn}\PYG{o}{,} \PYG{n}{hm0}\PYG{o}{⟩}\PYG{o}{,}
   \PYG{n}{set} \PYG{n}{k} \PYG{o}{:=} \PYG{n}{m.gcd} \PYG{n}{n} \PYG{k}{with} \PYG{n}{hk}\PYG{o}{,}
-  \PYG{c+c1}{\PYGZhy{}\PYGZhy{} might be useful to declutter}
+  \PYG{c+c1}{\PYGZhy{}\PYGZhy{} this abbreviation reduces clutter}
+  \PYG{c+c1}{\PYGZhy{}\PYGZhy{} ``set`` is similar to ``have``}
   \PYG{c+c1}{\PYGZhy{}\PYGZhy{} you can replace all the ``m.gcd n`` with ``k`` using ``rw ←hk,`` if needed}
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
@@ -1906,7 +1965,7 @@ Have fun!
 \PYG{k+kd}{theorem} \PYG{n}{sqrt2\PYGZus{}irrational\PYGZsq{}\PYGZsq{}} \PYG{o}{:}
   \PYG{n+nb+bp}{¬} \PYG{n+nb+bp}{∃} \PYG{o}{(}\PYG{n}{m} \PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}\PYG{o}{,}
   \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{m}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{=} \PYG{n}{n}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{∧}
-  \PYG{l+m+mi}{0} \PYG{n+nb+bp}{\PYGZlt{}} \PYG{n}{m}
+  \PYG{n}{m} \PYG{n+nb+bp}{≠} \PYG{l+m+mi}{0}
 \PYG{o}{:=}
 \PYG{k+kd}{begin}
   \PYG{g+gr}{sorry}\PYG{o}{,}
@@ -1924,9 +1983,10 @@ Have fun!
 \sphinxAtStartPar
 Lean provides us with the ability to group definitions into nested, hierarchical \sphinxstyleemphasis{namespaces}:
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day5:namespace-example}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{namespace} \PYG{n}{mcsp}
-  \PYG{k+kd}{def} \PYG{n}{tau} \PYG{o}{:=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{TAU on T\PYGZhy{}F from 1\PYGZhy{}3}\PYG{l+s+s2}{\PYGZdq{}}
+  \PYG{k+kd}{def} \PYG{n}{tau} \PYG{o}{:=} \PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+s2}{TAU on T\PYGZhy{}F from 2\PYGZhy{}4}\PYG{l+s+s2}{\PYGZdq{}}
   \PYG{k}{\PYGZsh{}eval} \PYG{n}{tau}
 \PYG{k+kd}{end} \PYG{n}{mcsp}
 
@@ -1941,7 +2001,7 @@ Lean provides us with the ability to group definitions into nested, hierarchical
 \end{sphinxVerbatim}
 
 \sphinxAtStartPar
-When we declare that we are working in the namespace \sphinxcode{\sphinxupquote{mscp}}, every identifier we declare has a full name with prefix “\sphinxcode{\sphinxupquote{mscp}}”.
+When we declare that we are working in the namespace \sphinxcode{\sphinxupquote{mcsp}}, every identifier we declare has a full name with prefix “\sphinxcode{\sphinxupquote{mcsp}}”.
 Within the namespace, we can refer to identifiers by their shorter names, but once we end the namespace, we have to use the longer names.
 
 \sphinxAtStartPar
@@ -1985,6 +2045,7 @@ The tactic for getting rid of coercions is \sphinxcode{\sphinxupquote{norm\_cast
 \par
 \sphinxattableend\end{savenotes}
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day5:id1}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{tactic} \PYG{n}{data.nat.basic} \PYG{n}{data.int.basic}
 \PYG{k+kd}{noncomputable theory}
@@ -1992,8 +2053,8 @@ The tactic for getting rid of coercions is \sphinxcode{\sphinxupquote{norm\_cast
 
 \PYG{k+kd}{theorem} \PYG{n}{sqrt2\PYGZus{}irrational\PYGZus{}nat} \PYG{o}{:}
   \PYG{n+nb+bp}{¬} \PYG{n+nb+bp}{∃} \PYG{o}{(}\PYG{n}{m} \PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}\PYG{o}{,}
-  \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{o}{(}\PYG{n}{m} \PYG{n+nb+bp}{*} \PYG{n}{m}\PYG{o}{)} \PYG{n+nb+bp}{=} \PYG{o}{(}\PYG{n}{n} \PYG{n+nb+bp}{*} \PYG{n}{n}\PYG{o}{)} \PYG{n+nb+bp}{∧}
-  \PYG{l+m+mi}{0} \PYG{n+nb+bp}{\PYGZlt{}} \PYG{n}{m}
+  \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{m}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{=} \PYG{n}{n}\PYG{n+nb+bp}{\PYGZca{}}\PYG{l+m+mi}{2} \PYG{n+nb+bp}{∧}
+  \PYG{n}{m} \PYG{n+nb+bp}{≠} \PYG{l+m+mi}{0}
 \PYG{o}{:=}
 \PYG{k+kd}{begin}
   \PYG{g+gr}{sorry}\PYG{o}{,}
@@ -2097,6 +2158,7 @@ For example, any theorem about groups can immediately be applied to integers onc
 If you look at \sphinxhref{https://github.com/leanprover-community/mathlib/blob/d1e63f3/src/data/int/basic.lean}{data.int.basic}
 you’ll see that first fifty lines of code prove that \sphinxcode{\sphinxupquote{ℤ}} is an instance of several type classes.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day5:cyclic-group}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{group\PYGZus{}theory.order\PYGZus{}of\PYGZus{}element}
 \PYG{k+kn}{import} \PYG{n}{tactic}
@@ -2135,6 +2197,7 @@ let’s try some familiar examples using the natural numbers and the familiar pr
 First let’s see how to make a recursive definition. I’ll define afunction called \sphinxcode{\sphinxupquote{sum\_first : ℕ → ℕ}}
 so that \sphinxcode{\sphinxupquote{sum\_first n}} is the sum of the first \sphinxcode{\sphinxupquote{n}} natural numbers.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day5:sum-first-defn}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{data.nat.basic}
 \PYG{k+kn}{import} \PYG{n}{tactic}
@@ -2152,6 +2215,7 @@ To do this, we’ll want the following two tactics:
 \sphinxAtStartPar
 Now let’s try the proof. Remember that \sphinxcode{\sphinxupquote{rw}} can be useful for unfolding definitions.
 
+\def\sphinxLiteralBlockLabel{\label{\detokenize{day5:sum-first-formula}}}
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n}{data.nat.basic}
 \PYG{k+kn}{import} \PYG{n}{tactic}
@@ -2161,7 +2225,8 @@ Now let’s try the proof. Remember that \sphinxcode{\sphinxupquote{rw}} can be 
 \PYG{n+nb+bp}{|} \PYG{l+m+mi}{0} \PYG{o}{:=} \PYG{l+m+mi}{0} \PYG{c+c1}{\PYGZhy{}\PYGZhy{} the definition at 0}
 \PYG{n+nb+bp}{|} \PYG{o}{(}\PYG{n}{n} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{o}{:=} \PYG{n}{sum\PYGZus{}first} \PYG{n}{n} \PYG{n+nb+bp}{+} \PYG{o}{(}\PYG{n}{n} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{c+c1}{\PYGZhy{}\PYGZhy{} the definition at (n + 1), which can use the definition at n}
 
-\PYG{k+kd}{example} \PYG{o}{:} \PYG{n+nb+bp}{∀} \PYG{o}{(}\PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}\PYG{o}{,} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{sum\PYGZus{}first} \PYG{n}{n} \PYG{n+nb+bp}{=} \PYG{o}{(}\PYG{n}{n} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{n+nb+bp}{*} \PYG{n}{n} \PYG{o}{:=}
+\PYG{l+s+sd}{/\PYGZhy{}\PYGZhy{}}\PYG{l+s+sd}{ }\PYG{l+s+sd}{n}\PYG{l+s+sd}{a}\PYG{l+s+sd}{t}\PYG{l+s+sd}{.}\PYG{l+s+sd}{s}\PYG{l+s+sd}{u}\PYG{l+s+sd}{c}\PYG{l+s+sd}{c}\PYG{l+s+sd}{\PYGZus{}}\PYG{l+s+sd}{e}\PYG{l+s+sd}{q}\PYG{l+s+sd}{\PYGZus{}}\PYG{l+s+sd}{a}\PYG{l+s+sd}{d}\PYG{l+s+sd}{d}\PYG{l+s+sd}{\PYGZus{}}\PYG{l+s+sd}{o}\PYG{l+s+sd}{n}\PYG{l+s+sd}{e}\PYG{l+s+sd}{ }\PYG{l+s+sd}{:}\PYG{l+s+sd}{ }\PYG{l+s+sd}{∀}\PYG{l+s+sd}{ }\PYG{l+s+sd}{(}\PYG{l+s+sd}{n}\PYG{l+s+sd}{ }\PYG{l+s+sd}{:}\PYG{l+s+sd}{ }\PYG{l+s+sd}{ℕ}\PYG{l+s+sd}{)}\PYG{l+s+sd}{,}\PYG{l+s+sd}{ }\PYG{l+s+sd}{n}\PYG{l+s+sd}{.}\PYG{l+s+sd}{s}\PYG{l+s+sd}{u}\PYG{l+s+sd}{c}\PYG{l+s+sd}{c}\PYG{l+s+sd}{ }\PYG{l+s+sd}{=}\PYG{l+s+sd}{ }\PYG{l+s+sd}{n}\PYG{l+s+sd}{ }\PYG{l+s+sd}{+}\PYG{l+s+sd}{ }\PYG{l+s+sd}{1}\PYG{l+s+sd}{ }\PYG{l+s+sd}{\PYGZhy{}/}
+\PYG{k+kd}{theorem} \PYG{n}{sum\PYGZus{}first\PYGZus{}formula} \PYG{o}{:} \PYG{n+nb+bp}{∀} \PYG{o}{(}\PYG{n}{n} \PYG{o}{:} \PYG{n}{ℕ}\PYG{o}{)}\PYG{o}{,} \PYG{l+m+mi}{2} \PYG{n+nb+bp}{*} \PYG{n}{sum\PYGZus{}first} \PYG{n}{n} \PYG{n+nb+bp}{=} \PYG{o}{(}\PYG{n}{n} \PYG{n+nb+bp}{+} \PYG{l+m+mi}{1}\PYG{o}{)} \PYG{n+nb+bp}{*} \PYG{n}{n} \PYG{o}{:=}
 \PYG{k+kd}{begin}
   \PYG{g+gr}{sorry}\PYG{o}{,}
 \PYG{k+kd}{end}
@@ -2412,6 +2477,18 @@ If \sphinxcode{\sphinxupquote{f}} is a term of type \sphinxcode{\sphinxupquote{P
 \sphinxAtStartPar
 You can also create subgoals with \sphinxcode{\sphinxupquote{have hp : P,}} which will create a separate goal to prove \sphinxcode{\sphinxupquote{P}}.
 Once you have closed this goal, you’ll have the hypothesis \sphinxcode{\sphinxupquote{hp : P}} at your disposal.
+\\
+\hline
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{set}}
+&
+\sphinxAtStartPar
+\sphinxcode{\sphinxupquote{set}} is used to create intermediate variables or abbreviations.
+It’s pretty similar to \sphinxcode{\sphinxupquote{have}}, with one important difference.
+If you type \sphinxcode{\sphinxupquote{have x : X := y,}}, Lean remembers that \sphinxcode{\sphinxupquote{x : X}}, but
+does not remember that \sphinxcode{\sphinxupquote{x = y}}.
+Meanwhile, \sphinxcode{\sphinxupquote{set}} remembers, so if you type \sphinxcode{\sphinxupquote{set x : X := y with hx,}} you also get \sphinxcode{\sphinxupquote{hx : x = y}},
+which you can use to rewrite.
 \\
 \hline
 \sphinxAtStartPar
