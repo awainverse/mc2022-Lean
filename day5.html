@@ -88,7 +88,7 @@ The tactic for getting rid of coercions is <code class="docutils literal notrans
 </tbody>
 </table>
 <div id="id1" style="position: relative">
-<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.basic%20data.int.basic%0Anoncomputable%20theory%0Aopen_locale%20classical%0A%0Atheorem%20sqrt2_irrational_nat%20%3A%0A%20%20%C2%AC%20%E2%88%83%20(m%20n%20%3A%20%E2%84%95)%2C%0A%20%202%20*%20m%5E2%20%3D%20n%5E2%20%E2%88%A7%0A%20%20m%20%E2%89%A0%200%0A%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A--%20Assume%20the%20above%20theorem%0A%0Alemma%20num_2%20%3A%20(2%20%3A%20%E2%84%9A).num%20%3D%202%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Alemma%20denom_2%20%3A%20(2%20%3A%20%E2%84%9A).denom%20%3D%201%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A%2F-%0Aq.denom%20%3D%20denominator%20of%20q%20(valued%20in%20%E2%84%95)%0Aq.num%20%3D%20numerator%20of%20q%20(valued%20in%20%E2%84%A4)%0A%0Afor%20integer%20m%2C%0Am.nat_abs%20%3D%20absolute%20value%20of%20m%20(valued%20in%20%E2%84%95)%0A%0Aint.nat_abs_mul_self'%20%3A%20%E2%88%80%20(a%20%3A%20%E2%84%A4)%2C%20%E2%86%91(a.nat_abs)%20*%20%E2%86%91(a.nat_abs)%20%3D%20a%20*%20a%0Aint.coe_nat_inj%20%3A%20%E2%88%80%20%7Bm%20n%20%3A%20%E2%84%95%7D%2C%20%E2%86%91m%20%3D%20%E2%86%91n%20%E2%86%92%20m%20%3D%20n%0A%0Arat.mul_self_denom%20%3A%20%E2%88%80%20(q%20%3A%20%E2%84%9A)%2C%20(q%20*%20q).denom%20%3D%20q.denom%20*%20q.denom%0Arat.mul_self_num%20%3A%20%E2%88%80%20(q%20%3A%20%E2%84%9A)%2C%20(q%20*%20q).num%20%3D%20q.num%20*%20q.num%0Arat.denom_ne_zero%20%3A%20%E2%88%80%20(q%20%3A%20%E2%84%9A)%2C%20q.denom%20%E2%89%A0%200%0A%0A-%2F%0A%0Atheorem%20sqrt2_irrational%20%3A%0A%C2%AC%20(%E2%88%83%20q%20%3A%20%E2%84%9A%2C%202%20%3D%20q%20*%20q)%0A%3A%3D%0Abegin%0A%20%20rintro%20%E2%9F%A8q%2C%20h%E2%9F%A9%2C%0A%20%20have%20clear_denom%20%3A%3D%20rat.eq_iff_mul_eq_mul.mp%20h%2C%0A%20%20sorry%2C%0Aend" id="id1" target="_blank" tryitfile="../examples/day5/coercions.lean">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20tactic%20data.nat.basic%20data.int.basic%0Anoncomputable%20theory%0Aopen_locale%20classical%0A%0Atheorem%20sqrt2_irrational_nat%20%3A%0A%20%20%C2%AC%20%E2%88%83%20(m%20n%20%3A%20%E2%84%95)%2C%0A%20%202%20*%20m%5E2%20%3D%20n%5E2%20%E2%88%A7%0A%20%20m%20%E2%89%A0%200%0A%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A--%20Assume%20the%20above%20theorem%0A%0Alemma%20num_2%20%3A%20(2%20%3A%20%E2%84%9A).num%20%3D%202%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0Alemma%20denom_2%20%3A%20(2%20%3A%20%E2%84%9A).denom%20%3D%201%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend%0A%0A%2F-%0Aq.denom%20%3D%20denominator%20of%20q%20(valued%20in%20%E2%84%95)%0Aq.num%20%3D%20numerator%20of%20q%20(valued%20in%20%E2%84%A4)%0A%0Afor%20integer%20m%2C%0Am.nat_abs%20%3D%20absolute%20value%20of%20m%20(valued%20in%20%E2%84%95)%0A%0Aint.nat_abs_mul_self'%20%3A%20%E2%88%80%20(a%20%3A%20%E2%84%A4)%2C%20%E2%86%91(a.nat_abs)%20*%20%E2%86%91(a.nat_abs)%20%3D%20a%20*%20a%0Aint.coe_nat_inj%20%3A%20%E2%88%80%20%7Bm%20n%20%3A%20%E2%84%95%7D%2C%20%E2%86%91m%20%3D%20%E2%86%91n%20%E2%86%92%20m%20%3D%20n%0A%0Arat.mul_self_denom%20%3A%20%E2%88%80%20(q%20%3A%20%E2%84%9A)%2C%20(q%20*%20q).denom%20%3D%20q.denom%20*%20q.denom%0Arat.mul_self_num%20%3A%20%E2%88%80%20(q%20%3A%20%E2%84%9A)%2C%20(q%20*%20q).num%20%3D%20q.num%20*%20q.num%0Arat.denom_ne_zero%20%3A%20%E2%88%80%20(q%20%3A%20%E2%84%9A)%2C%20q.denom%20%E2%89%A0%200%0A%0Alemmas%20about%20nat-to-int%20coercion%2C%20which%20norm_cast%20knows%3A%0Anat.cast_one%20%3A%20%E2%86%91(1%20%3A%20%E2%84%95)%20%3D%20(1%20%3A%20%E2%84%A4)%0Anat.cast_two%20%3A%20%E2%86%91(2%20%3A%20%E2%84%95)%20%3D%20(2%20%3A%20%E2%84%A4)%0Anat.cast_mul%20(m%20n%20%3A%20%E2%84%95)%20%3A%20%E2%86%91(m%20*%20n)%20%3D%20%E2%86%91m%20*%20%E2%86%91n%0A%0Alemma%20which%20ring_nf%20knows%3A%0Apow_two%20(x)%20%3A%20x%5E2%20%3D%20x%20*%20x%0A%0A-%2F%0A%0Atheorem%20sqrt2_irrational%20%3A%0A%C2%AC%20(%E2%88%83%20q%20%3A%20%E2%84%9A%2C%202%20%3D%20q%20*%20q)%0A%3A%3D%0Abegin%0A%20%20rintro%20%E2%9F%A8q%2C%20h%E2%9F%A9%2C%0A%20%20have%20clear_denom%20%3A%3D%20rat.eq_iff_mul_eq_mul.mp%20h%2C%0A%20%20sorry%2C%0Aend" id="id1" target="_blank" tryitfile="../examples/day5/coercions.lean">
 try it!</a></div><div class="highlight-lean notranslate" id="id1"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="n">tactic</span> <span class="n">data.nat.basic</span> <span class="n">data.int.basic</span>
 <span class="kd">noncomputable theory</span>
 <span class="n">open_locale</span> <span class="n">classical</span>
@@ -127,6 +127,14 @@ try it!</a></div><div class="highlight-lean notranslate" id="id1"><div class="hi
 <span class="cm">rat.mul_self_denom : &#8704; (q : &#8474;), (q * q).denom = q.denom * q.denom</span>
 <span class="cm">rat.mul_self_num : &#8704; (q : &#8474;), (q * q).num = q.num * q.num</span>
 <span class="cm">rat.denom_ne_zero : &#8704; (q : &#8474;), q.denom &#8800; 0</span>
+
+<span class="cm">lemmas about nat-to-int coercion, which norm_cast knows:</span>
+<span class="cm">nat.cast_one : &#8593;(1 : &#8469;) = (1 : &#8484;)</span>
+<span class="cm">nat.cast_two : &#8593;(2 : &#8469;) = (2 : &#8484;)</span>
+<span class="cm">nat.cast_mul (m n : &#8469;) : &#8593;(m * n) = &#8593;m * &#8593;n</span>
+
+<span class="cm">lemma which ring_nf knows:</span>
+<span class="cm">pow_two (x) : x^2 = x * x</span>
 
 <span class="cm">-/</span>
 
@@ -238,18 +246,57 @@ try it!</a></div><div class="highlight-lean notranslate" id="sum-first-defn"><di
 </div>
 </div><p>Now let&#8217;s prove the famous closed formula for <code class="docutils literal notranslate"><span class="pre">sum_first</span> <span class="pre">n</span></code>, using induction.
 To do this, we&#8217;ll want the following two tactics:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">induction</span></code></p></td>
+<td><p>If <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">:</span> <span class="pre">&#8469;</span></code> is a natural number variable, <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">:</span> <span class="pre">&#8469;</span> <span class="pre">&#8594;</span> <span class="pre">Prop</span></code> is a property of natural numbers,
+and you want to prove <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">n</span></code> using induction, then <code class="docutils literal notranslate"><span class="pre">induction</span> <span class="pre">n</span> <span class="pre">using</span> <span class="pre">k</span> <span class="pre">ih,</span></code> will create two goals.</p>
+<p>One has target <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">0</span></code>, this is the base case.</p>
+<p>The other has target <code class="docutils literal notranslate"><span class="pre">P</span> <span class="pre">(k.succ)</span></code>, where <code class="docutils literal notranslate"><span class="pre">k.succ</span> <span class="pre">=</span> <span class="pre">k</span> <span class="pre">+</span> <span class="pre">1</span></code>.
+(You can rewrite away the <code class="docutils literal notranslate"><span class="pre">.succ</span></code> with <code class="docutils literal notranslate"><span class="pre">nat.succ_eq_add_one</span></code>.)
+You&#8217;re also provided an induction hypothesis, <code class="docutils literal notranslate"><span class="pre">ih</span> <span class="pre">:</span> <span class="pre">P</span> <span class="pre">k</span></code>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">refl</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">refl,</span></code> proves things that are literally true by definition.
+Often this will handle your base case.</p></td>
+</tr>
+</tbody>
+</table>
 <p>Now let&#8217;s try the proof. Remember that <code class="docutils literal notranslate"><span class="pre">rw</span></code> can be useful for unfolding definitions.</p>
 <div id="sum-first-formula" style="position: relative">
-<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20data.nat.basic%0Aimport%20tactic%0A%0Adef%20sum_first%20%3A%0A%20%20%E2%84%95%20%E2%86%92%20%E2%84%95%20--%20the%20type%20of%20the%20function%20you%20want%20to%20define%20recursively%0A%7C%200%20%3A%3D%200%20--%20the%20definition%20at%200%0A%7C%20(n%20%2B%201)%20%3A%3D%20sum_first%20n%20%2B%20(n%20%2B%201)%20--%20the%20definition%20at%20(n%20%2B%201)%2C%20which%20can%20use%20the%20definition%20at%20n%0A%0A%2F--%20nat.succ_eq_add_one%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%20n.succ%20%3D%20n%20%2B%201%20-%2F%0Atheorem%20sum_first_formula%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%202%20*%20sum_first%20n%20%3D%20(n%20%2B%201)%20*%20n%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend" id="sum-first-formula" target="_blank" tryitfile="../examples/day5/sum_first_formula.lean">
+<div style='position: absolute; right: 0; top: 0; padding: 1ex'><a href="https://leanprover-community.github.io/lean-web-editor/#code=import%20data.nat.basic%0Aimport%20tactic%0A%0A%2F--------------------------------------------------------------------------%0A%0A%60%60induction%60%60%0A%0A%20%20If%20%60%60n%20%3A%20%E2%84%95%60%60%20is%20a%20natural%20number%20variable%2C%20%60%60P%20%3A%20%E2%84%95%20%E2%86%92%20Prop%60%60%20is%20a%20property%20of%20natural%20numbers%2C%0A%20%20and%20you%20want%20to%20prove%20%60%60P%20n%60%60%20using%20induction%2C%20then%20%60%60induction%20n%20using%20k%20ih%2C%60%60%20will%20create%20two%20goals.%0A%20%20One%20is%20the%20base%20case%2C%20the%20other%20is%20the%20induction%20step.%0A%0A%0A%60%60rintro%60%60%0A%0A%20%20If%20the%20target%20of%20the%20current%20goal%20is%20a%20function%20%60%60P%20%E2%86%92%20Q%60%60%2C%20then%0A%20%20%60%60rintro%20hp%2C%60%60%20will%20produce%20a%20hypothesis%0A%20%20%60%60hp%20%3A%20P%60%60%20and%20change%20the%20target%20to%20%20%60%60Q%60%60.%0A%0Anat.succ_eq_add_one%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%20n.succ%20%3D%20n%20%2B%201%0A%0A--------------------------------------------------------------------------%2F%0A%0Adef%20sum_first%20%3A%0A%20%20%E2%84%95%20%E2%86%92%20%E2%84%95%20--%20the%20type%20of%20the%20function%20you%20want%20to%20define%20recursively%0A%7C%200%20%3A%3D%200%20--%20the%20definition%20at%200%0A%7C%20(n%20%2B%201)%20%3A%3D%20sum_first%20n%20%2B%20(n%20%2B%201)%20--%20the%20definition%20at%20(n%20%2B%201)%2C%20which%20can%20use%20the%20definition%20at%20n%0A%0Atheorem%20sum_first_formula%20%3A%20%E2%88%80%20(n%20%3A%20%E2%84%95)%2C%202%20*%20sum_first%20n%20%3D%20(n%20%2B%201)%20*%20n%20%3A%3D%0Abegin%0A%20%20sorry%2C%0Aend" id="sum-first-formula" target="_blank" tryitfile="../examples/day5/sum_first_formula.lean">
 try it!</a></div><div class="highlight-lean notranslate" id="sum-first-formula"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="n">data.nat.basic</span>
 <span class="kn">import</span> <span class="n">tactic</span>
+
+<span class="sd">/--------------------------------------------------------------------------</span>
+
+<span class="sd">``induction``</span>
+
+<span class="sd">  If ``n : &#8469;`` is a natural number variable, ``P : &#8469; &#8594; Prop`` is a property of natural numbers,</span>
+<span class="sd">  and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.</span>
+<span class="sd">  One is the base case, the other is the induction step.</span>
+
+
+<span class="sd">``rintro``</span>
+
+<span class="sd">  If the target of the current goal is a function ``P &#8594; Q``, then</span>
+<span class="sd">  ``rintro hp,`` will produce a hypothesis</span>
+<span class="sd">  ``hp : P`` and change the target to  ``Q``.</span>
+
+<span class="sd">nat.succ_eq_add_one : &#8704; (n : &#8469;), n.succ = n + 1</span>
+
+<span class="sd">--------------------------------------------------------------------------/</span>
 
 <span class="kd">def</span> <span class="n">sum_first</span> <span class="o">:</span>
   <span class="n">&#8469;</span> <span class="bp">&#8594;</span> <span class="n">&#8469;</span> <span class="c1">-- the type of the function you want to define recursively</span>
 <span class="bp">|</span> <span class="mi">0</span> <span class="o">:=</span> <span class="mi">0</span> <span class="c1">-- the definition at 0</span>
 <span class="bp">|</span> <span class="o">(</span><span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="o">:=</span> <span class="n">sum_first</span> <span class="n">n</span> <span class="bp">+</span> <span class="o">(</span><span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="c1">-- the definition at (n + 1), which can use the definition at n</span>
 
-<span class="sd">/-- nat.succ_eq_add_one : &#8704; (n : &#8469;), n.succ = n + 1 -/</span>
 <span class="kd">theorem</span> <span class="n">sum_first_formula</span> <span class="o">:</span> <span class="bp">&#8704;</span> <span class="o">(</span><span class="n">n</span> <span class="o">:</span> <span class="n">&#8469;</span><span class="o">),</span> <span class="mi">2</span> <span class="bp">*</span> <span class="n">sum_first</span> <span class="n">n</span> <span class="bp">=</span> <span class="o">(</span><span class="n">n</span> <span class="bp">+</span> <span class="mi">1</span><span class="o">)</span> <span class="bp">*</span> <span class="n">n</span> <span class="o">:=</span>
 <span class="kd">begin</span>
   <span class="gr">sorry</span><span class="o">,</span>
