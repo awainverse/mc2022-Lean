@@ -48,22 +48,24 @@ Here are two of Lean's many tactics that automate basic calculations for us.
   :header-rows: 0
 
   * - ``norm_num``
-    - ``norm_num`` is Lean’s calculator. If the target has a proof that involves *only* numbers and arithmetic operations,
-      then ``norm_num`` will close this goal.
+    - ``norm_num`` is Lean’s calculator. If the target has a proof that involves *only* natural numbers and arithmetic operations,
+      then ``norm_num`` will close this goal. This is usually the most powerful tactic for dealing with natural numbers.
 
-      If ``hp : P`` is an assumption then ``norm_num at hp,`` tries to use simplify ``hp`` using basic arithmetic operations.
+      If ``hp : P`` is an assumption then ``norm_num at hp,`` tries to simplify ``hp`` using basic arithmetic operations.
 
   * - ``ring_nf`` 
     - ``ring_nf,`` is Lean's algebraic manipulator. 
-      If the target has a proof that involves *only* algebraic operations, 
+      If the target has a proof that involves *only* addition and multiplication, 
       then ``ring_nf,`` will close the goal.
 
-      If ``hp : P`` is an assumption then ``ring_nf at hp,`` tries to use simplify ``hp`` using basic algebraic operations.
+      If ``hp : P`` is an assumption then ``ring_nf at hp,`` tries to simplify ``hp`` using basic algebraic operations.
 
   * - ``linarith`` 
     - ``linarith,`` is Lean's inequality solver.
+      It can read and use your hypotheses, and can sometimes also solve facts that aren't explicitly about inequalities.
   
 .. code:: lean 
+  :name: trivial_tactic_examples
 
   import tactic data.nat.prime 
 
@@ -71,11 +73,11 @@ Here are two of Lean's many tactics that automate basic calculations for us.
 
   ``norm_num``
 
-    Useful for arithmetic.
+    Useful for arithmetic of natural numbers.
   
   ``ring_nf``
 
-    Useful for basic algebra.
+    Useful for basic algebra with + and *.
 
   ``linarith``
 
@@ -156,7 +158,8 @@ If you need a term of type ``n > 0`` and you only have ``hn : 0 < n``, then you 
 We will need the following lemma later. Remember to save your proof. 
 (Here's a :doc:`hint <../hint_1_have_exercise>` if you need one.)
 
-.. code:: lean 
+.. code:: lean
+  :name: have_exercise 
 
   import tactic data.nat.prime
   open nat
@@ -180,7 +183,7 @@ We will need the following lemma later. Remember to save your proof.
 
   --------------------------------------------------------------------------/
 
-  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → p = 1 :=
+  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → (p ∣ 1) :=
   begin
     sorry,
   end
@@ -197,15 +200,15 @@ We'll need the following definitions and theorems from the library.
 **Primes** 
   * ``m ∣ n := ∃ k : ℕ, m = n * k``
   * ``m.prime :=  2 ≤ p ∧ (∀ (m : ℕ), m ∣ p → m = 1 ∨ m = p)``
-  * ``prime.not_dvd_one : (prime p) → ¬ p ∣ 1``
+  * ``nat.prime.not_dvd_one : (prime p) → ¬ p ∣ 1``
 
 **Factorials**
-  * ``n.fact := n!  --n factorial``
-  * ``fact_pos : ∀ (n : ℕ), 0 < n.fact``
-  * ``dvd_fact : 0 < m → m ≤ n → m ∣ n.fact``
+  * ``factorial n`` is defined to be n!
+  * ``factorial_pos : ∀ (n : ℕ), 0 < factorial n``
+  * ``dvd_factorial : 0 < m → m ≤ n → m ∣ factorial n``
 
 **Smallest factor** 
-  * ``n.min_fac :=`` smallest non-trivial factor of ``n``
+  * ``n.min_fac`` is defined to be the smallest non-trivial factor of ``n``
   * ``min_fac_prime : n ≠ 1 → n.min_fac.prime`` 
   * ``min_fac_pos : ∀ (n : ℕ), 0 < n.min_fac``
   * ``min_fac_dvd : ∀ (n : ℕ), n.min_fac ∣ n``
@@ -215,6 +218,7 @@ The exercise below is very open-ended.
 You should take your time, check the goal window at every step, and sketch out the proof on paper whenever you get lost.
 
 .. code:: lean 
+  :name: inf_primes
 
   import tactic data.nat.prime
   noncomputable theory
@@ -222,24 +226,23 @@ You should take your time, check the goal window at every step, and sketch out t
 
   open nat
 
-  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → p = 1 :=
+  theorem dvd_sub_one {p a : ℕ} : (p ∣ a) → (p ∣ a + 1) → (p ∣ 1) :=
   begin
     sorry,
   end
 
   /-
-  dvd_sub_one : (p ∣ a) → (p ∣ a + 1) → p = 1
+  dvd_sub_one : (p ∣ a) → (p ∣ a + 1) → (p ∣ 1)
 
   m ∣ n := ∃ k : ℕ, m = n * k
   m.prime :=  2 ≤ p ∧ (∀ (m : ℕ), m ∣ p → m = 1 ∨ m = p)
-  nat.not_prime_one : ¬ nat.prime 1
-  nat.prime.pos : ∀ {p : ℕ}, nat.prime p → 0 < n.min_fac
+  nat.prime.not_dvd_one : (prime p) → ¬ p ∣ 1
 
-  n.fact := n! (n factorial)
-  fact_pos : ∀ (n : ℕ), 0 < n.fact
-  dvd_fact : 0 < m → m ≤ n → m ∣ n.fact
+  factorial n is defined to be n!
+  factorial_pos : ∀ (n : ℕ), 0 < factorial n
+  dvd_factorial : 0 < m → m ≤ n → m ∣ factorial n
 
-  n.min_fac := smallest non-trivial factor of n
+  n.min_fac is defined to be the smallest non-trivial factor of n
   min_fac_prime : n ≠ 1 → n.min_fac.prime
   min_fac_pos : ∀ (n : ℕ), 0 < n.min_fac
   min_fac_dvd : ∀ (n : ℕ), n.min_fac ∣ n
@@ -247,7 +250,7 @@ You should take your time, check the goal window at every step, and sketch out t
 
   theorem exists_infinite_primes (n : ℕ) : ∃ p, nat.prime p ∧ p ≥ n :=
   begin
-    set p:= (n.fact + 1).min_fac,
+    set p := (n.factorial + 1).min_fac, -- Use `set` instead of `have` when you're just making an abbreviation for a number.
     sorry,
   end
 

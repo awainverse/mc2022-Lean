@@ -18,6 +18,7 @@ The only two things Lean can do is *create* terms and *check* their types.
 By iterating these two operations, we can teach Lean to verify complex mathematical proofs.
 
 .. code-block:: lean
+  :name: easy_fermat
 
   def x := 2 + 2                                  -- a natural number
   def f (x : ℕ) := x + 3                          -- a function
@@ -33,7 +34,7 @@ By iterating these two operations, we can teach Lean to verify complex mathemati
   easy_proof : easy_theorem_statement             -- proof of easy_theorem
   :=
   begin
-    refl,                                         -- a tactic
+    rw easy_theorem_statement,                    -- a tactic
   end
 
   theorem 
@@ -56,6 +57,7 @@ How to use these notes
 Every once in a while, you will see a code snippet like this:
 
 .. code-block:: lean
+  :name: hello_world
 
     #eval "Hello, World!"
 
@@ -100,7 +102,6 @@ Useful Links.
     #. `The Mechanization of Mathematics`_ 
     #. `The Future of Mathematics`_
     #. `Kevin Buzzard's Twitch channel <https://www.twitch.tv/kbuzzard>`__. In particular, checkout `this video <https://www.twitch.tv/videos/665779560>`__ about summer projects.
-    #. `Jalex Stark's Twitch channel <https://www.twitch.tv/jalexstark>`__. 
 #. `Discord server <https://t.co/DSz6mbw4Oc?amp=1>`__ 
 #. `Lean Zulip chat group`_
 

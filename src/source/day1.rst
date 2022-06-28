@@ -39,6 +39,7 @@ Propositions in Lean
 In Lean, a proposition and its proof are written using the following syntax.
 
 .. code:: lean
+  :name: flt
 
   theorem fermats_last_theorem 
     (n : ℕ) 
@@ -193,7 +194,7 @@ Often these two tactics can be used interchangeably.
 When writing a big proof, you often want a healthy combination of the two that makes the proof readable.
 
 .. code:: lean 
-  :name: have_apply_examples
+  :name: have_refine_examples
 
   import tactic
   /--------------------------------------------------------------------------
@@ -230,6 +231,11 @@ When writing a big proof, you often want a healthy combination of the two that m
   begin
     sorry,
   end
+
+We will be learning a lot of tactics this week.
+If ever you lose track of them, check out the :doc:`Glossary of tactics<../tactics>`,
+which lists all of the tactics that are mentioned in these notes,
+as well as some others which are not needed for this class, but may come up if you read other code in Lean.
 
 And / Or
 ===============================

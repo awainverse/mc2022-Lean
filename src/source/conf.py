@@ -100,7 +100,7 @@ html_theme_options = {
     'head_font_family': 'Times New Roman, Times, serif',
     'code_bg': 'white',
     'code_font_size': '10pt',
-    'extra_nav_links': {'PDF version':'/latex/lean_at_mc2022.pdf',
+    'extra_nav_links': {'PDF version':'https://awainverse.github.io/mc2022-Lean/latex/lean_at_mc2022.pdf',
                         'Lean Live Editor': 'https://leanprover-community.github.io/lean-web-editor/',
                         'Lean Documentation': 'https://leanprover-community.github.io/mathlib_docs/',
                         'Leanprover Community':'https://leanprover-community.github.io/'},

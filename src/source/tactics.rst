@@ -48,6 +48,14 @@ Implications in Lean
 
       You can also create subgoals with ``have hp : P,`` which will create a separate goal to prove ``P``.
       Once you have closed this goal, you'll have the hypothesis ``hp : P`` at your disposal.
+  
+  * - ``set``
+    - ``set`` is used to create intermediate variables or abbreviations.
+      It's pretty similar to ``have``, with one important difference.
+      If you type ``have x : X := y,``, Lean remembers that ``x : X``, but
+      does not remember that ``x = y``.
+      Meanwhile, ``set`` remembers, so if you type ``set x : X := y with hx,`` you also get ``hx : x = y``,
+      which you can use to rewrite.
      
   * - ``apply``
     - ``apply`` is used for backward reasoning. 
