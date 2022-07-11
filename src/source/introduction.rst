@@ -20,6 +20,8 @@ By iterating these two operations, we can teach Lean to verify complex mathemati
 .. code-block:: lean
   :name: easy_fermat
 
+  import data.nat.basic
+
   def x := 2 + 2                                  -- a natural number
   def f (x : ℕ) := x + 3                          -- a function
   def easy_theorem_statement := 2 + 2 = 4         -- a proposition
@@ -68,6 +70,12 @@ and Lean provides feedback in the ``Lean Infoview`` window.
 We use this feature to provide exercises inline in the notes. 
 We recommend attempting each exercise as you go along.
 
+If you have installed Lean, then you can type the following in your command line to download the exercises.
+(If you are not used to using the command line, ask for help!)
+``leanproject get awainverse/mc2022-lean-examples``
+This will create a folder called ``mc2022-lean-examples``.
+You should then the folder in VSCode by typing ``code mc2022-lean-examples``.
+
 These notes are designed for a 5-day Lean crash course at Mathcamp 2022, based on a similar class at Mathcamp 2020.
 On Days 1 and 2 you'll learn the basics of type theory and some basic ``tactics`` in Lean. 
 On Days 3, 4, 5 you'll use these to prove increasingly complex theorems, namely the infinitude of primes and irrationality of :math:`\sqrt{2}`.
@@ -78,7 +86,7 @@ It is recommended that you simultaneously attempt at least one of the following 
 #. Play the `Natural Number Game`_.
 #. Read `Theorem Proving in Lean`_.
 
-The `Natural Number Game`_ is a fun (and highly addictive!) game that proves same basic properties of natural numbers in Lean.
+The `Natural Number Game`_ is a fun game that proves same basic properties of natural numbers in Lean.
 `Theorem Proving in Lean`_ is a comprehensive online book that aims to cover all the theorem proving aspects of Lean in great detail. 
 
 The Lean community is very welcoming to newcomers, and people are available on the `Lean Zulip chat group`_ round the clock

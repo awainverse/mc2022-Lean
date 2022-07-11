@@ -99,6 +99,14 @@ The tactic for getting rid of coercions is ``norm_cast`` which will reduce the a
   rat.mul_self_num : ∀ (q : ℚ), (q * q).num = q.num * q.num
   rat.denom_ne_zero : ∀ (q : ℚ), q.denom ≠ 0
   
+  lemmas about nat-to-int coercion, which norm_cast knows:
+  nat.cast_one : ↑(1 : ℕ) = (1 : ℤ)
+  nat.cast_two : ↑(2 : ℕ) = (2 : ℤ)
+  nat.cast_mul (m n : ℕ) : ↑(m * n) = ↑m * ↑n
+
+  lemma which ring_nf knows:
+  pow_two (x) : x^2 = x * x
+
   -/
 
   theorem sqrt2_irrational : 
@@ -221,13 +229,13 @@ To do this, we'll want the following two tactics:
 
   * - ``induction``
     - If ``n : ℕ`` is a natural number variable, ``P : ℕ → Prop`` is a property of natural numbers,
-     and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.
+      and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.
 
-     One has target ``P 0``, this is the base case.
+      One has target ``P 0``, this is the base case.
 
-     The other has target ``P (k.succ)``, where ``k.succ = k + 1``.
-     (You can rewrite away the ``.succ`` with ``nat.succ_eq_add_one``.)
-     You're also provided an induction hypothesis, ``ih : P k``.
+      The other has target ``P (k.succ)``, where ``k.succ = k + 1``.
+      (You can rewrite away the ``.succ`` with ``nat.succ_eq_add_one``.)
+      You're also provided an induction hypothesis, ``ih : P k``.
 
   * - ``refl`` 
     - ``refl,`` proves things that are literally true by definition.
@@ -241,12 +249,27 @@ Now let's try the proof. Remember that ``rw`` can be useful for unfolding defini
   import data.nat.basic
   import tactic
 
+  /--------------------------------------------------------------------------
+
+  ``induction``
+    
+    If ``n : ℕ`` is a natural number variable, ``P : ℕ → Prop`` is a property of natural numbers,
+    and you want to prove ``P n`` using induction, then ``induction n using k ih,`` will create two goals.
+    One is the base case, the other is the induction step.
+
+
+  ``refl`` proves things that are literally true by definition.
+    Often this will handle your base case.
+
+  nat.succ_eq_add_one : ∀ (n : ℕ), n.succ = n + 1
+
+  --------------------------------------------------------------------------/
+
   def sum_first :
     ℕ → ℕ -- the type of the function you want to define recursively
   | 0 := 0 -- the definition at 0
   | (n + 1) := sum_first n + (n + 1) -- the definition at (n + 1), which can use the definition at n
 
-  /-- nat.succ_eq_add_one : ∀ (n : ℕ), n.succ = n + 1 -/
   theorem sum_first_formula : ∀ (n : ℕ), 2 * sum_first n = (n + 1) * n :=
   begin
     sorry,
